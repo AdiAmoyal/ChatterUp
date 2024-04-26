@@ -8,11 +8,101 @@
 import SwiftUI
 
 struct SignInView: View {
+    
+    @State private var viewModel = SignInViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.theme.background
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 40) {
+                    Text("")
+                        .frame(height: 170)
+                    
+                    VStack(spacing: 8) {
+                        header
+                        signUpSection
+                    }
+                    
+                    signInWithEmail
+//                        .padding(.top, 20)
+                    
+                    Divider()
+                        .foregroundColor(Color.theme.stroke)
+                        .overlay {
+                            Text("or sign in with")
+                                .foregroundStyle(Color.theme.body)
+                                .bold()
+                                .padding(8)
+                                .background(Color.theme.background)
+                                .offset(y: -1)
+                        }
+                    
+                    
+                }
+                .padding()
+            }
+        }
     }
 }
 
 #Preview {
     SignInView()
+}
+
+extension SignInView {
+    
+    private var header: some View {
+        Text("Sign In to ChetterUp")
+            .foregroundStyle(Color.theme.title)
+            .font(.title)
+            .bold()
+    }
+    
+    private var signUpSection: some View {
+        HStack {
+            Text("Don't have an account?")
+                .foregroundStyle(Color.theme.body)
+            
+            Button("Sign Up") {
+                
+            }
+            .accentColor(Color.theme.primaryBlue)
+            .bold()
+        }
+        .font(.headline)
+    }
+    
+    private var signInWithEmail: some View {
+        VStack(spacing: 25) {
+            CustomTextField(text: $viewModel.email, symbol: "envelope", placeHolder: "Enter your email..", type: "Email")
+            
+            VStack(spacing: 5) {
+                CustomTextField(text: $viewModel.password, symbol: "key.horizontal", placeHolder: "Enter your password..", type: "Password")
+                
+                Text("Forgot Password?")
+                    .foregroundStyle(Color.theme.body)
+                    .font(.subheadline)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+    
+            Button(action: {
+                
+            }, label: {
+                Text("Sign In")
+                    .foregroundStyle(Color.white)
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity, minHeight: 50)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.theme.primaryBlue)
+                    )
+            })
+        }
+    }
+    
 }
