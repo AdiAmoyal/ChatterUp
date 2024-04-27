@@ -15,7 +15,10 @@ struct ChatterUpAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SignInView()
+            NavigationStack {
+                SignInView()
+            }
+            .accentColor(Color.theme.primaryBlue)
         }
     }
 }

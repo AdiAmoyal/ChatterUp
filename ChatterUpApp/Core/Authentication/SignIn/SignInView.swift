@@ -11,6 +11,10 @@ struct SignInView: View {
     
     @State private var viewModel = SignInViewModel()
     
+    init() {
+        print("SIGN IN INIT!")
+    }
+    
     var body: some View {
         ZStack {
             Color.theme.background
@@ -49,7 +53,9 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+    NavigationStack {
+        SignInView()
+    }
 }
 
 extension SignInView {
@@ -66,10 +72,10 @@ extension SignInView {
             Text("Don't have an account?")
                 .foregroundStyle(Color.theme.body)
             
-            Button("Sign Up") {
-                
+            NavigationLink("Sign Up") {
+                SignUpView()
             }
-            .accentColor(Color.theme.primaryBlue)
+            .foregroundStyle(Color.theme.primaryBlue)
             .bold()
         }
         .font(.headline)
@@ -90,7 +96,7 @@ extension SignInView {
             }
     
             Button(action: {
-                
+                viewModel.signIn()
             }, label: {
                 Text("Sign In")
                     .foregroundStyle(Color.white)

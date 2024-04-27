@@ -64,11 +64,15 @@ extension CustomTextField {
     private var passwordSecureField: some View {
         SecureField(placeHolder, text: $text)
             .disableAutocorrection(true)
+            .foregroundStyle(Color.theme.title)
+            .font(.headline)
     }
     
     private var textField: some View {
         TextField(placeHolder, text: $text)
             .disableAutocorrection(true)
+            .foregroundStyle(Color.theme.title)
+            .font(.headline)
     }
     
     private var overlayText: some View {
