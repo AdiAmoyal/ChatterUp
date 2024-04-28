@@ -9,11 +9,8 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @State private var viewModel = SignInViewModel()
-    
-    init() {
-        print("SIGN IN INIT!")
-    }
+    @StateObject var viewModel = SignInViewModel()
+    @Binding var showSignInView: Bool
     
     var body: some View {
         ZStack {
@@ -54,7 +51,7 @@ struct SignInView: View {
 
 #Preview {
     NavigationStack {
-        SignInView()
+        SignInView(showSignInView: .constant(false))
     }
 }
 
@@ -73,7 +70,7 @@ extension SignInView {
                 .foregroundStyle(Color.theme.body)
             
             NavigationLink("Sign Up") {
-                SignUpView()
+                SignUpView(showSignInView: $showSignInView)
             }
             .foregroundStyle(Color.theme.primaryBlue)
             .bold()
@@ -96,7 +93,14 @@ extension SignInView {
             }
     
             Button(action: {
-                viewModel.signIn()
+                Task {
+                    do {
+                        try await viewModel.signIn()
+                        showSignInView = false
+                    } catch {
+                        print("Cannot Sign In!")
+                    }
+                }
             }, label: {
                 Text("Sign In")
                     .foregroundStyle(Color.white)

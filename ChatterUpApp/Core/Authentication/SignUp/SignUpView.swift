@@ -10,31 +10,14 @@ import SwiftUI
 /*
  
  TODO: 1. Adding actions to edit photo menu
- TODO: 2. Add functionality to sign up buttom
  
  */
-
-class SignUpViewModel: ObservableObject {
-    
-    @Published var fullName: String = ""
-    @Published var nickname: String = ""
-    @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var confirmPassword: String = ""
-    
-    func signUp() {
-        
-    }
-}
 
 struct SignUpView: View {
     
     @StateObject private var viewModel = SignUpViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
-    init() {
-        print("Sign up INIT")
-    }
+    @Binding var showSignInView: Bool
     
     var body: some View {
         ZStack {
@@ -56,7 +39,7 @@ struct SignUpView: View {
 
 #Preview {
     NavigationStack {
-        SignUpView()
+        SignUpView(showSignInView: .constant(false))
     }
 }
 
@@ -108,6 +91,7 @@ extension SignUpView {
             
             Button(action: {
                 viewModel.signUp()
+                showSignInView = false
             }, label: {
                 Text("Sign Up")
                     .foregroundStyle(Color.white)
