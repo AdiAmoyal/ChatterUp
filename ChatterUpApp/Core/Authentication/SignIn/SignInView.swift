@@ -11,6 +11,7 @@ struct SignInView: View {
     
     @StateObject var viewModel = SignInViewModel()
     @Binding var showSignInView: Bool
+    @State var showForgotPasswordSheet: Bool = false
     
     var body: some View {
         ZStack {
@@ -28,19 +29,8 @@ struct SignInView: View {
                     }
                     
                     signInWithEmail
-//                        .padding(.top, 20)
-                    
-                    Divider()
-                        .foregroundColor(Color.theme.stroke)
-                        .overlay {
-                            Text("or sign in with")
-                                .foregroundStyle(Color.theme.body)
-                                .bold()
-                                .padding(8)
-                                .background(Color.theme.background)
-                                .offset(y: -1)
-                        }
-                    
+
+                    divider
                     
                 }
                 .padding()
@@ -85,14 +75,10 @@ extension SignInView {
             VStack(spacing: 5) {
                 CustomTextField(text: $viewModel.password, symbol: "key.horizontal", placeHolder: "Enter your password..", type: "Password")
                 
-                Text("Forgot Password?")
-                    .foregroundStyle(Color.theme.body)
-                    .font(.subheadline)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                forgotPassword
             }
-    
-            Button(action: {
+            
+            CustomSignInButton(action: {
                 Task {
                     do {
                         try await viewModel.signIn()
@@ -101,18 +87,40 @@ extension SignInView {
                         print("Cannot Sign In!")
                     }
                 }
-            }, label: {
-                Text("Sign In")
-                    .foregroundStyle(Color.white)
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.theme.primaryBlue)
-                    )
-            })
+            }, title: "Sign In")
         }
+    }
+    
+    private var forgotPassword: some View {
+        Text("Forgot Password?")
+            .foregroundStyle(Color.theme.body)
+            .font(.subheadline)
+            .bold()
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .onTapGesture(perform: {
+                withAnimation(.easeInOut) {
+                    showForgotPasswordSheet.toggle()
+                }
+            })
+            .sheet(isPresented: $showForgotPasswordSheet, content: {
+                ForgotPasswordView(viewModel: viewModel, showForgotPasswordSheet: $showForgotPasswordSheet)
+                    .presentationDetents([.fraction(0.5)])
+                    .presentationDragIndicator(.visible)
+            })
+            
+    }
+    
+    private var divider: some View {
+        Divider()
+            .foregroundColor(Color.theme.stroke)
+            .overlay {
+                Text("or sign in with")
+                    .foregroundStyle(Color.theme.body)
+                    .bold()
+                    .padding(8)
+                    .background(Color.theme.background)
+                    .offset(y: -1)
+            }
     }
     
 }

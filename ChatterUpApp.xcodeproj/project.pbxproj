@@ -23,6 +23,9 @@
 		91908A1F2BDC66CA00A95B8D /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91908A1E2BDC66CA00A95B8D /* FirebaseAnalyticsSwift */; };
 		91908A222BDC69E500A95B8D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 91908A212BDC69E500A95B8D /* FirebaseAuth */; };
 		91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91908A242BDC6A8500A95B8D /* SignUpView.swift */; };
+		91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */; };
+		91EDC97A2BE2EA020012BFD0 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC9792BE2EA020012BFD0 /* PreviewProvider.swift */; };
+		91EDC97C2BE2EC390012BFD0 /* CustomSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		91908A172BDC521500A95B8D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		91908A192BDC667D00A95B8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91908A242BDC6A8500A95B8D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		91EDC9792BE2EA020012BFD0 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSignInButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				91908A0D2BDC514A00A95B8D /* Color.swift */,
+				91EDC9792BE2EA020012BFD0 /* PreviewProvider.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -136,6 +143,7 @@
 			children = (
 				91908A122BDC51B800A95B8D /* SignInView.swift */,
 				91908A142BDC51E300A95B8D /* SignInViewModel.swift */,
+				91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -144,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				91908A172BDC521500A95B8D /* CustomTextField.swift */,
+				91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -244,7 +253,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				91908A012BDC50C800A95B8D /* ContentView.swift in Sources */,
+				91EDC97A2BE2EA020012BFD0 /* PreviewProvider.swift in Sources */,
+				91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */,
 				9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */,
+				91EDC97C2BE2EC390012BFD0 /* CustomSignInButton.swift in Sources */,
 				919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */,
 				91908A182BDC521500A95B8D /* CustomTextField.swift in Sources */,
 				9189E8422BDC95D200DF915E /* RootView.swift in Sources */,

@@ -21,6 +21,11 @@ final class ContentViewModel: ObservableObject {
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
     
+    func updatePassword() async throws {
+        let password = "123456"
+        try await AuthenticationManager.shared.updatePassword(password: password)
+    }
+    
 }
 
 struct ContentView: View {
@@ -55,7 +60,18 @@ struct ContentView: View {
                         print(error)
                     }
                 }
-                
+            }
+            
+            Button("Update password") {
+                // TODO: get new password from the user
+                Task {
+                    do {
+                        try await viewModel.updatePassword()
+                        print("PASSWORD UPDATED!")
+                    } catch {
+                        print(error)
+                    }
+                }
             }
         }
         .padding()

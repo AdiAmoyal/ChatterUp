@@ -37,6 +37,13 @@ final class AuthenticationManager {
     func resetPassword(email: String) async throws {
         try await Auth.auth().sendPasswordReset(withEmail: email)
     }
+    
+    func updatePassword(password: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badURL)
+        }
+        try await user.updatePassword(to: password)
+    }
 }
 
 struct AuthDataResultModel {
