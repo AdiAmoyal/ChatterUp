@@ -13,7 +13,6 @@ struct SignInView: View {
     
     @StateObject var viewModel = SignInViewModel()
     @Binding var showSignInView: Bool
-    @State var showForgotPasswordSheet: Bool = false
     
     // Alert
     @State var showAlert: Bool = false
@@ -110,22 +109,15 @@ extension SignInView {
     }
     
     private var forgotPassword: some View {
-        Text("Forgot Password?")
-            .foregroundStyle(Color.theme.body)
-            .font(.subheadline)
-            .bold()
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .onTapGesture(perform: {
-                withAnimation(.easeInOut) {
-                    showForgotPasswordSheet.toggle()
-                }
-            })
-            .sheet(isPresented: $showForgotPasswordSheet, content: {
-                ForgotPasswordView(viewModel: viewModel, showForgotPasswordSheet: $showForgotPasswordSheet)
-                    .presentationDetents([.fraction(0.5)])
-                    .presentationDragIndicator(.visible)
-            })
-            
+        NavigationLink {
+            ForgotPasswordView(viewModel: viewModel)
+        } label: {
+            Text("Forgot Password?")
+                .foregroundStyle(Color.theme.body)
+                .font(.subheadline)
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
     }
     
     private var divider: some View {

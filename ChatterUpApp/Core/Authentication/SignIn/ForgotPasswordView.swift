@@ -10,7 +10,8 @@ import SwiftUI
 struct ForgotPasswordView: View {
 
     @ObservedObject var viewModel: SignInViewModel
-    @Binding var showForgotPasswordSheet: Bool
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var showAlert: Bool = false
     @State var alertMessage: String = ""
     
@@ -33,16 +34,15 @@ struct ForgotPasswordView: View {
                         do {
                            try await viewModel.resetPassword()
                             alertMessage = "An email with instructions to reset your password has been sent to you"
-                            withAnimation(.easeInOut) {
-                                showForgotPasswordSheet.toggle()
-                            }
+                            presentationMode.wrappedValue.dismiss()
                         } catch {
                             alertMessage = error.localizedDescription
-//                            showAlert.toggle()
                         }
                         showAlert.toggle()
                     }
                 }, title: "Send")
+                
+                Spacer()
             }
             .padding()
         }
@@ -53,7 +53,7 @@ struct ForgotPasswordView: View {
 }
 
 #Preview {
-    ForgotPasswordView(viewModel: SignInViewModel(), showForgotPasswordSheet: .constant(false))
+    ForgotPasswordView(viewModel: SignInViewModel())
 }
 
 extension ForgotPasswordView {

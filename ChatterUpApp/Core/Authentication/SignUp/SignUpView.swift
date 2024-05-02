@@ -19,6 +19,10 @@ struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var showSignInView: Bool
     
+    // Alert
+    @State var showAlert: Bool = false
+    @State var alertMessage: String = ""
+    
     var body: some View {
         ZStack {
             Color.theme.background
@@ -32,6 +36,9 @@ struct SignUpView: View {
                 }
                 .padding()
             }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
+            })
         }
         .foregroundStyle(Color.theme.body)
     }
@@ -44,6 +51,10 @@ struct SignUpView: View {
 }
 
 extension SignUpView {
+    
+    private func getAlert() -> Alert {
+        return Alert(title: Text(alertMessage))
+    }
     
     private var profilePicture: some View {
         VStack {
@@ -89,20 +100,17 @@ extension SignUpView {
             
             CustomTextField(text: $viewModel.confirmPassword, symbol: "key.horizontal", placeHolder: "Confirm your password..", type: "Password")
             
-            Button(action: {
-                viewModel.signUp()
-                showSignInView = false
-            }, label: {
-                Text("Sign Up")
-                    .foregroundStyle(Color.white)
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.theme.primaryBlue)
-                    )
-            })
+            CustomSignInButton(action: {
+                Task {
+                    do {
+                        try await viewModel.signUp()
+                        showSignInView = false
+                    } catch {
+                        alertMessage = error.localizedDescription
+                        showAlert = true
+                    }
+                }
+            }, title: "Sign Up")
         }
     }
     

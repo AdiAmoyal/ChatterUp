@@ -16,19 +16,13 @@ final class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     
-    func signUp() {
+    func signUp() async throws {
         guard !validationInputs() else {
             print("Inputs are invalid")
             return
         }
         
-        Task {
-            do {
-                let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
-            } catch {
-                throw error
-            }
-        }
+        let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
     }
     
     func validationInputs() -> Bool {
