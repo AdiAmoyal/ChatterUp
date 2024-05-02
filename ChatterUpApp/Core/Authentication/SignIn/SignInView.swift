@@ -12,6 +12,8 @@ struct SignInView: View {
     @StateObject var viewModel = SignInViewModel()
     @Binding var showSignInView: Bool
     @State var showForgotPasswordSheet: Bool = false
+    @State var showAlert: Bool = false
+    @State var alertMessage: String = ""
     
     var body: some View {
         ZStack {
@@ -35,6 +37,10 @@ struct SignInView: View {
                 }
                 .padding()
             }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
+            })
+            
         }
     }
 }
@@ -46,6 +52,10 @@ struct SignInView: View {
 }
 
 extension SignInView {
+    
+    private func getAlert() -> Alert {
+        return Alert(title: Text(alertMessage))
+    }
     
     private var header: some View {
         Text("Sign In to ChetterUp")
@@ -84,6 +94,8 @@ extension SignInView {
                         try await viewModel.signIn()
                         showSignInView = false
                     } catch {
+                        alertMessage = error.localizedDescription
+                        showAlert.toggle()
                         print("Cannot Sign In!")
                     }
                 }

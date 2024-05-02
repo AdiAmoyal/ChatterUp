@@ -15,7 +15,7 @@ final class AuthenticationManager {
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badURL)
+            throw AuthenticationError.noUser
         }
         return AuthDataResultModel(user: user)
     }
@@ -40,7 +40,7 @@ final class AuthenticationManager {
     
     func updatePassword(password: String) async throws {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badURL)
+            throw AuthenticationError.noUser
         }
         try await user.updatePassword(to: password)
     }
@@ -50,13 +50,11 @@ struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoUrl: String?
-    let isAnonymous: Bool
     
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
-        self.isAnonymous = user.isAnonymous
     }
 }
 
@@ -64,4 +62,15 @@ enum AuthProviderOption: String {
     case email = "password"
     case google = "google.com"
     case apple = "apple.com"
+}
+
+private enum AuthenticationError: LocalizedError {
+    case noUser
+    
+    var errorDescription: String? {
+        switch self {
+        case .noUser:
+            return "There is no logged in user."
+        }
+    }
 }

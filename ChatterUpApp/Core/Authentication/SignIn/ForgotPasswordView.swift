@@ -11,6 +11,8 @@ struct ForgotPasswordView: View {
 
     @ObservedObject var viewModel: SignInViewModel
     @Binding var showForgotPasswordSheet: Bool
+    @State var showAlert: Bool = false
+    @State var alertMessage: String = ""
     
     var body: some View {
         ZStack {
@@ -30,18 +32,23 @@ struct ForgotPasswordView: View {
                     Task {
                         do {
                            try await viewModel.resetPassword()
+                            alertMessage = "An email with instructions to reset your password has been sent to you"
+                            withAnimation(.easeInOut) {
+                                showForgotPasswordSheet.toggle()
+                            }
                         } catch {
-                            print(error)
+                            alertMessage = error.localizedDescription
+//                            showAlert.toggle()
                         }
-                    }
-                    
-                    withAnimation(.easeInOut) {
-                        showForgotPasswordSheet.toggle()
+                        showAlert.toggle()
                     }
                 }, title: "Send")
             }
             .padding()
         }
+        .alert(isPresented: $showAlert, content: {
+            getAlert()
+        })
     }
 }
 
@@ -50,6 +57,10 @@ struct ForgotPasswordView: View {
 }
 
 extension ForgotPasswordView {
+    
+    private func getAlert() -> Alert {
+        return Alert(title: Text(alertMessage))
+    }
     
     private var title: some View {
             Text("Forgot Password?")
