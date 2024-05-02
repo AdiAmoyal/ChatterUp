@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct SignInView: View {
     
     @StateObject var viewModel = SignInViewModel()
     @Binding var showSignInView: Bool
     @State var showForgotPasswordSheet: Bool = false
+    
+    // Alert
     @State var showAlert: Bool = false
     @State var alertMessage: String = ""
     
@@ -33,6 +37,8 @@ struct SignInView: View {
                     signInWithEmail
 
                     divider
+                    
+                    signInWithGoogle
                     
                 }
                 .padding()
@@ -133,6 +139,19 @@ extension SignInView {
                     .background(Color.theme.background)
                     .offset(y: -1)
             }
+    }
+    
+    private var signInWithGoogle: some View {
+        GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+            Task {
+                do {
+                    try await viewModel.signInGoogle()
+                    showSignInView = false
+                } catch {
+                    print(error)
+                }
+            }
+        }
     }
     
 }

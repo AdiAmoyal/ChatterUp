@@ -11,6 +11,7 @@ struct CustomTextField: View {
     
     @Binding var text: String
     @State private var showPassword: Bool = false
+    @FocusState private var isFocus: Bool
     
     let symbol: String
     let placeHolder: String
@@ -42,7 +43,7 @@ struct CustomTextField: View {
         .frame(height: 50)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.theme.stroke ,lineWidth: 1.5)
+                .stroke(isFocus ? Color.theme.primaryBlue : Color.theme.stroke ,lineWidth: 1.5)
         )
         .overlay(alignment: .topLeading) {
             overlayText
@@ -63,6 +64,7 @@ extension CustomTextField {
     
     private var passwordSecureField: some View {
         SecureField(placeHolder, text: $text)
+            .focused($isFocus)
             .disableAutocorrection(true)
             .foregroundStyle(Color.theme.title)
             .font(.headline)
@@ -70,6 +72,7 @@ extension CustomTextField {
     
     private var textField: some View {
         TextField(placeHolder, text: $text)
+            .focused($isFocus)
             .disableAutocorrection(true)
             .foregroundStyle(Color.theme.title)
             .font(.headline)

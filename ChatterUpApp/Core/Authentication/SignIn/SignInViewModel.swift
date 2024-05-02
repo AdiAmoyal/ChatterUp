@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import GoogleSignIn
+import GoogleSignInSwift
+import UIKit
 
 @MainActor
 final class SignInViewModel: ObservableObject {
@@ -40,6 +43,12 @@ final class SignInViewModel: ObservableObject {
         }
 
         try await AuthenticationManager.shared.resetPassword(email: email)
+    }
+    
+    func signInGoogle() async throws {
+        let helper = SignInGoogleHelper()
+        let signInGoogleResult = try await helper.signIn()
+        let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(googleResultModel: signInGoogleResult)
     }
 }
 
