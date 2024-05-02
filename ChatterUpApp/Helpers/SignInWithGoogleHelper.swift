@@ -8,7 +8,7 @@
 import Foundation
 import GoogleSignIn
 
-struct GoogleSignInResultModel {
+struct SignInWithGoogleResult {
     let idToken: String
     let accessToken: String
     let email: String?
@@ -37,14 +37,14 @@ struct GoogleSignInResultModel {
 final class SignInGoogleHelper {
     
     @MainActor
-    func signIn() async throws -> GoogleSignInResultModel{
+    func signIn() async throws -> SignInWithGoogleResult{
         guard let topVc = UIApplication.topViewController() else {
             throw GoogleSignInError.noViewController
         }
         
         let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVc)
         
-        guard let result = GoogleSignInResultModel(result: gidSignInResult) else {
+        guard let result = SignInWithGoogleResult(result: gidSignInResult) else {
             throw GoogleSignInError.badResponse
         }
         

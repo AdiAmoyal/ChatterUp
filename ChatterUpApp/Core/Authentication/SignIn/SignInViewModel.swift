@@ -41,7 +41,7 @@ final class SignInViewModel: ObservableObject {
             email.contains("@") else {
             throw SignInError.invalidEmail
         }
-
+        
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
     
@@ -49,6 +49,12 @@ final class SignInViewModel: ObservableObject {
         let helper = SignInGoogleHelper()
         let signInGoogleResult = try await helper.signIn()
         let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(googleResultModel: signInGoogleResult)
+    }
+    
+    func signInApple() async throws {
+        let helper = SignInAppleHelper()
+        let signInAppleResult = try await helper.startSignInWithAppleFlow()
+        let authDataResult = try await AuthenticationManager.shared.signInWithApple(appleResultModel: signInAppleResult)
     }
 }
 

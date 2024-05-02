@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import GoogleSignIn
 import GoogleSignInSwift
+import AuthenticationServices
 
 struct SignInView: View {
     
@@ -34,11 +34,13 @@ struct SignInView: View {
                     }
                     
                     signInWithEmail
-
+                    
                     divider
                     
-                    signInWithGoogle
-                    
+                    VStack(spacing: 15) {
+                        signInWithGoogle
+                        signInWithApple
+                    }
                 }
                 .padding()
             }
@@ -101,7 +103,6 @@ extension SignInView {
                     } catch {
                         alertMessage = error.localizedDescription
                         showAlert.toggle()
-                        print("Cannot Sign In!")
                     }
                 }
             }, title: "Sign In")
@@ -140,10 +141,29 @@ extension SignInView {
                     try await viewModel.signInGoogle()
                     showSignInView = false
                 } catch {
-                    print(error)
+                    alertMessage = error.localizedDescription
+                    showAlert.toggle()
                 }
             }
         }
+    }
+    
+    private var signInWithApple: some View {
+        Button(action: {
+            Task {
+                do {
+                    try await viewModel.signInApple()
+                    showSignInView = false
+                } catch {
+                    alertMessage = error.localizedDescription
+                    showAlert.toggle()
+                }
+            }
+        }, label: {
+            SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
+                .allowsHitTesting(false)
+        })
+        .frame(height: 50)
     }
     
 }

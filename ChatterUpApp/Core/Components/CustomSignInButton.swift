@@ -18,7 +18,7 @@ struct CustomSignInButton: View {
                 .foregroundStyle(Color.white)
                 .font(.headline)
                 .padding()
-                .frame(maxWidth: .infinity, minHeight: 50)
+                .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 50)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.theme.primaryBlue)

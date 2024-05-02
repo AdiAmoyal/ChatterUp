@@ -101,8 +101,15 @@ extension AuthenticationManager {
 
 extension AuthenticationManager {
     
-    func signInWithGoogle(googleResultModel: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+    func signInWithGoogle(googleResultModel: SignInWithGoogleResult) async throws -> AuthDataResultModel {
         let credential = GoogleAuthProvider.credential(withIDToken: googleResultModel.idToken, accessToken: googleResultModel.accessToken)
+        return try await signIn(credential: credential)
+    }
+    
+    func signInWithApple(appleResultModel: SignInWithAppleResult) async throws -> AuthDataResultModel {
+        let credential = OAuthProvider.appleCredential(withIDToken: appleResultModel.token,
+                                                       rawNonce: appleResultModel.nonce,
+                                                       fullName: nil)
         return try await signIn(credential: credential)
     }
     
