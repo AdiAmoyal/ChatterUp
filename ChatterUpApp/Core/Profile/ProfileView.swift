@@ -12,10 +12,9 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State private var nickName: String = "Nick Name"
-    @State private var showAlert: Bool = false
     
     // Alert
-    @State private var showDeleteAccountAlert: Bool = false
+    @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var alertType: String = ""
     

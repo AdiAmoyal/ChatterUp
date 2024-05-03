@@ -23,6 +23,8 @@ final class SignUpViewModel: ObservableObject {
         }
         
         let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
+        let user = DBUser(auth: authDataResult)
+        try await UserManager.shared.createNewUser(user: user)
     }
     
     func validationInputs() -> Bool {

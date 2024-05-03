@@ -49,12 +49,16 @@ final class SignInViewModel: ObservableObject {
         let helper = SignInGoogleHelper()
         let signInGoogleResult = try await helper.signIn()
         let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(googleResultModel: signInGoogleResult)
+        let user = DBUser(auth: authDataResult)
+        try await UserManager.shared.createNewUser(user: user)
     }
     
     func signInApple() async throws {
         let helper = SignInAppleHelper()
         let signInAppleResult = try await helper.startSignInWithAppleFlow()
         let authDataResult = try await AuthenticationManager.shared.signInWithApple(appleResultModel: signInAppleResult)
+        let user = DBUser(auth: authDataResult)
+        try await UserManager.shared.createNewUser(user: user)
     }
 }
 
