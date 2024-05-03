@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DCC2BE456A9006F2A48 /* TabbarView.swift */; };
+		91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD02BE45BAF006F2A48 /* ProfileView.swift */; };
+		91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */; };
+		91571DD52BE46BD3006F2A48 /* StatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD42BE46BD3006F2A48 /* StatusPickerView.swift */; };
 		9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E83D2BDC8E5C00DF915E /* AuthenticationManager.swift */; };
 		9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */; };
 		9189E8422BDC95D200DF915E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E8412BDC95D200DF915E /* RootView.swift */; };
@@ -34,6 +38,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91571DCC2BE456A9006F2A48 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		91571DD02BE45BAF006F2A48 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		91571DD42BE46BD3006F2A48 /* StatusPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPickerView.swift; sourceTree = "<group>"; };
 		9189E83D2BDC8E5C00DF915E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		9189E8412BDC95D200DF915E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -74,6 +82,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91571DCE2BE45B90006F2A48 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
+		91571DCF2BE45B9C006F2A48 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				91571DD62BE47196006F2A48 /* Subviews */,
+				91571DD02BE45BAF006F2A48 /* ProfileView.swift */,
+				91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		91571DD62BE47196006F2A48 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				91571DD42BE46BD3006F2A48 /* StatusPickerView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		9189E83C2BDC8E4400DF915E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,9 +171,12 @@
 		91908A0F2BDC519300A95B8D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				91571DCF2BE45B9C006F2A48 /* Profile */,
+				91571DCE2BE45B90006F2A48 /* Chats */,
 				91908A162BDC520100A95B8D /* Components */,
 				91908A102BDC519E00A95B8D /* Authentication */,
 				9189E8412BDC95D200DF915E /* RootView.swift */,
+				91571DCC2BE456A9006F2A48 /* TabbarView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -283,18 +319,22 @@
 			files = (
 				91EDC98A2BE326860012BFD0 /* UIApplication.swift in Sources */,
 				91908A012BDC50C800A95B8D /* ContentView.swift in Sources */,
+				91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */,
 				91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */,
 				9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */,
 				91910FA22BE32A1E00BAB38E /* SignInWithGoogleHelper.swift in Sources */,
 				91EDC97C2BE2EC390012BFD0 /* CustomSignInButton.swift in Sources */,
 				919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */,
 				91908A182BDC521500A95B8D /* CustomTextField.swift in Sources */,
+				91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */,
 				9189E8422BDC95D200DF915E /* RootView.swift in Sources */,
 				9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */,
+				91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */,
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,
 				91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */,
 				91908A132BDC51B800A95B8D /* SignInView.swift in Sources */,
 				91908A0E2BDC514A00A95B8D /* Color.swift in Sources */,
+				91571DD52BE46BD3006F2A48 /* StatusPickerView.swift in Sources */,
 				91908A152BDC51E300A95B8D /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

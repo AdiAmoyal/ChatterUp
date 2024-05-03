@@ -123,11 +123,6 @@ extension SignUpView {
                 self.presentationMode.wrappedValue.dismiss()
             }
             .foregroundStyle(Color.theme.primaryBlue)
-            
-//            NavigationLink("Sign In") {
-//                SignInView()
-//            }
-//            .foregroundStyle(Color.theme.primaryBlue)
         }
         .bold()
     }
