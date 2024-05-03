@@ -95,7 +95,7 @@ extension SignInView {
                 forgotPassword
             }
             
-            CustomSignInButton(action: {
+            CustomActionButton(action: {
                 Task {
                     do {
                         try await viewModel.signIn()
@@ -105,7 +105,7 @@ extension SignInView {
                         showAlert.toggle()
                     }
                 }
-            }, title: "Sign In")
+            }, title: "Sign In", color: .theme.primaryBlue)
         }
     }
     

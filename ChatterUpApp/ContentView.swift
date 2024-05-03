@@ -26,6 +26,10 @@ final class ContentViewModel: ObservableObject {
         try await AuthenticationManager.shared.updatePassword(password: password)
     }
     
+    func deleteAccount() async throws {
+        try await AuthenticationManager.shared.delet()
+    }
+    
 }
 
 struct ContentView: View {
@@ -68,6 +72,17 @@ struct ContentView: View {
                     do {
                         try await viewModel.updatePassword()
                         print("PASSWORD UPDATED!")
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+            
+            Button("Delete User") {
+                Task {
+                    do {
+                        try await viewModel.deleteAccount()
+                        showSignInView = true
                     } catch {
                         print(error)
                     }

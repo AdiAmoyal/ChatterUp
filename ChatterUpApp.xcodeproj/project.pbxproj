@@ -30,7 +30,7 @@
 		91910FA22BE32A1E00BAB38E /* SignInWithGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91910FA12BE32A1E00BAB38E /* SignInWithGoogleHelper.swift */; };
 		91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A037FF2BE4386200C41248 /* SignInWithAppleHelper.swift */; };
 		91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */; };
-		91EDC97C2BE2EC390012BFD0 /* CustomSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */; };
+		91EDC97C2BE2EC390012BFD0 /* CustomActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */; };
 		91EDC9822BE324090012BFD0 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91EDC9812BE324090012BFD0 /* GoogleService-Info-2.plist */; };
 		91EDC9852BE3246A0012BFD0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 91EDC9842BE3246A0012BFD0 /* GoogleSignIn */; };
 		91EDC9872BE3246A0012BFD0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EDC9862BE3246A0012BFD0 /* GoogleSignInSwift */; };
@@ -60,7 +60,7 @@
 		91A037FE2BE4358B00C41248 /* ChatterUpApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatterUpApp.entitlements; sourceTree = "<group>"; };
 		91A037FF2BE4386200C41248 /* SignInWithAppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleHelper.swift; sourceTree = "<group>"; };
 		91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
-		91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSignInButton.swift; sourceTree = "<group>"; };
+		91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionButton.swift; sourceTree = "<group>"; };
 		91EDC9812BE324090012BFD0 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
 		91EDC9882BE324B90012BFD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		91EDC9892BE326860012BFD0 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				91908A172BDC521500A95B8D /* CustomTextField.swift */,
-				91EDC97B2BE2EC390012BFD0 /* CustomSignInButton.swift */,
+				91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 				91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */,
 				9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */,
 				91910FA22BE32A1E00BAB38E /* SignInWithGoogleHelper.swift in Sources */,
-				91EDC97C2BE2EC390012BFD0 /* CustomSignInButton.swift in Sources */,
+				91EDC97C2BE2EC390012BFD0 /* CustomActionButton.swift in Sources */,
 				919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */,
 				91908A182BDC521500A95B8D /* CustomTextField.swift in Sources */,
 				91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */,

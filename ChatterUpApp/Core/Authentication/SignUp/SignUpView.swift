@@ -100,7 +100,7 @@ extension SignUpView {
             
             CustomTextField(text: $viewModel.confirmPassword, symbol: "key.horizontal", placeHolder: "Confirm your password..", type: "Password")
             
-            CustomSignInButton(action: {
+            CustomActionButton(action: {
                 Task {
                     do {
                         try await viewModel.signUp()
@@ -110,7 +110,7 @@ extension SignUpView {
                         showAlert = true
                     }
                 }
-            }, title: "Sign Up")
+            }, title: "Sign Up", color: .theme.primaryBlue)
         }
     }
     

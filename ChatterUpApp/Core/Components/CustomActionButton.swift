@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct CustomSignInButton: View {
+struct CustomActionButton: View {
     
     let action: () -> ()
     let title: String
+    let color: Color
     
     var body: some View {
         Button(action: { action() }, label: {
@@ -18,15 +19,16 @@ struct CustomSignInButton: View {
                 .foregroundStyle(Color.white)
                 .font(.headline)
                 .padding()
-                .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 50)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.theme.primaryBlue)
+                        .fill(color)
                 )
         })
     }
 }
 
 #Preview {
-    CustomSignInButton(action: {}, title: "Sign In")
+    CustomActionButton(action: {}, title: "Sign In", color: .theme.primaryBlue)
 }

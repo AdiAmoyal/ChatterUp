@@ -29,7 +29,7 @@ struct ForgotPasswordView: View {
                     
                 CustomTextField(text: $viewModel.email, symbol: "envelope", placeHolder: "Enter your email..", type: "Email")
                 
-                CustomSignInButton(action: {
+                CustomActionButton(action: {
                     Task {
                         do {
                            try await viewModel.resetPassword()
@@ -40,7 +40,7 @@ struct ForgotPasswordView: View {
                         }
                         showAlert.toggle()
                     }
-                }, title: "Send")
+                }, title: "Send", color: .theme.primaryBlue)
                 
                 Spacer()
             }

@@ -10,7 +10,29 @@ import Foundation
 final class ProfileViewModel: ObservableObject {
     
     @Published var selectedStatus: StatusOption = .available
+    @Published var authProviders: [AuthProviderOption] = []
     
+    func loadAuthProvider() {
+        if let providers = try? AuthenticationManager.shared.getProviders() {
+            self.authProviders = providers
+        }
+    }
+    
+    func signOut() throws {
+        try AuthenticationManager.shared.signOut()
+    }
+    
+    func resetPassword() async throws {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        guard let email = authUser.email else {
+            throw URLError(.badURL)
+        }
+        try await AuthenticationManager.shared.resetPassword(email: email)
+    }
+    
+    func deleteAccount() async throws {
+        try await AuthenticationManager.shared.delet()
+    }
 }
 
 enum StatusOption: String, CaseIterable {

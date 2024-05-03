@@ -12,6 +12,12 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State private var nickName: String = "Nick Name"
+    @State private var showAlert: Bool = false
+    
+    // Alert
+    @State private var showDeleteAccountAlert: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var alertType: String = ""
     
     var body: some View {
         ZStack {
@@ -32,10 +38,19 @@ struct ProfileView: View {
                 }
                 
                 Spacer()
+                
+                buttonsSection
+                
             }
             .foregroundStyle(Color.theme.body)
             .padding()
         }
+        .alert(isPresented: $showAlert, content: {
+            getAlert(type: alertType)
+        })
+        .onAppear(perform: {
+            viewModel.loadAuthProvider()
+        })
     }
 }
 
@@ -46,6 +61,36 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
+    
+    private func getAlert(type: String) -> Alert {
+        if type == "delete" {
+            return getDeleteAccountAlert()
+        }
+        return Alert(title: Text(alertMessage))
+    }
+    
+    private func getDeleteAccountAlert() -> Alert {
+        return Alert(
+            title: Text(""),
+            message: Text(alertMessage),
+            primaryButton: .cancel(),
+            secondaryButton: .destructive(
+                Text("Delete"),
+                action: {
+                    Task {
+                        do {
+                            try await viewModel.deleteAccount()
+                            showSignInView = true
+                        } catch {
+                            alertMessage = "Please log in again before retrying this request"
+                            alertType = ""
+                            showAlert = true
+                        }
+                    }
+                }
+            )
+        )
+    }
     
     private var profilePicture: some View {
         Circle()
@@ -92,4 +137,39 @@ extension ProfileView {
             )
         }
     }
+    
+    private var buttonsSection: some View {
+        VStack {
+            if viewModel.authProviders.contains(.email) {
+                CustomActionButton(action: {
+                    Task {
+                        do {
+                            try await viewModel.resetPassword()
+                            print("PASSWORD RESET!")
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }, title: "Reset password", color: .theme.primaryBlue)
+            }
+            
+            CustomActionButton(action: {
+                Task {
+                    do {
+                        try viewModel.signOut()
+                        showSignInView = true
+                    } catch {
+                        print(error)
+                    }
+                }
+            }, title: "Sign out", color: .theme.primaryBlue)
+            
+            CustomActionButton(action: {
+                alertMessage = "Are you sure you want to delete your account? This action cannot be undone"
+                alertType = "delete"
+                showAlert.toggle()
+            }, title: "Delete account", color: .theme.red)
+        }
+    }
+    
 }

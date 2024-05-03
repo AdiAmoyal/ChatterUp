@@ -70,6 +70,14 @@ final class AuthenticationManager {
         try Auth.auth().signOut()
     }
     
+    func delet() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badURL)
+        }
+        
+        try await user.delete()
+    }
+    
 }
 
 // MARK: Sing In Email
