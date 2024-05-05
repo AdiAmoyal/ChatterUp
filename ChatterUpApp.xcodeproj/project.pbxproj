@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9138C2A42BE70D2000DCA534 /* CompleteDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */; };
 		91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DCC2BE456A9006F2A48 /* TabbarView.swift */; };
 		91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD02BE45BAF006F2A48 /* ProfileView.swift */; };
 		91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteDetailsView.swift; sourceTree = "<group>"; };
 		91571DCC2BE456A9006F2A48 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		91571DD02BE45BAF006F2A48 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9138C2A22BE70C0300DCA534 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		91571DCE2BE45B90006F2A48 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +210,7 @@
 		91908A112BDC51A800A95B8D /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				9138C2A22BE70C0300DCA534 /* Subviews */,
 				91908A122BDC51B800A95B8D /* SignInView.swift */,
 				91908A142BDC51E300A95B8D /* SignInViewModel.swift */,
 				91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */,
@@ -337,6 +348,7 @@
 				91908A182BDC521500A95B8D /* CustomTextField.swift in Sources */,
 				91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */,
 				9189E8422BDC95D200DF915E /* RootView.swift in Sources */,
+				9138C2A42BE70D2000DCA534 /* CompleteDetailsView.swift in Sources */,
 				9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */,
 				91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */,
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,

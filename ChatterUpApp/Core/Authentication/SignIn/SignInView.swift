@@ -13,6 +13,7 @@ struct SignInView: View {
     
     @StateObject var viewModel = SignInViewModel()
     @Binding var showSignInView: Bool
+    @State var showCompleteDetailsView: Bool = false
     
     // Alert
     @State var showAlert: Bool = false
@@ -47,6 +48,11 @@ struct SignInView: View {
             .alert(isPresented: $showAlert, content: {
                 getAlert()
             })
+            
+            if showCompleteDetailsView {
+                CompleteDetailsView(viewModel: viewModel, showSignInView: $showSignInView)
+                    .transition(.move(edge: .trailing))
+            }
             
         }
     }
@@ -138,8 +144,13 @@ extension SignInView {
         GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
             Task {
                 do {
-                    try await viewModel.signInGoogle()
-                    showSignInView = false
+                    if try await viewModel.signInGoogle() {
+                        showSignInView = false
+                    } else {
+                        withAnimation(.spring) {
+                            showCompleteDetailsView = true
+                        }
+                    }
                 } catch {
                     alertMessage = error.localizedDescription
                     showAlert.toggle()
@@ -152,8 +163,13 @@ extension SignInView {
         Button(action: {
             Task {
                 do {
-                    try await viewModel.signInApple()
-                    showSignInView = false
+                    if try await viewModel.signInApple() {
+                        showSignInView = false
+                    } else {
+                        withAnimation(.spring) {
+                            showCompleteDetailsView = true
+                        }
+                    }
                 } catch {
                     alertMessage = error.localizedDescription
                     showAlert.toggle()

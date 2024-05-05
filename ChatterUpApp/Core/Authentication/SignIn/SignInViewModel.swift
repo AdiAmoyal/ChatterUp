@@ -15,6 +15,9 @@ final class SignInViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var fullName: String = ""
+    @Published var nickname: String = ""
+    // TODO: Profile picture
     
     func signIn() async throws {
         guard
@@ -45,21 +48,40 @@ final class SignInViewModel: ObservableObject {
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
     
-    func signInGoogle() async throws {
+    func signInGoogle() async throws -> Bool {
         let helper = SignInGoogleHelper()
         let signInGoogleResult = try await helper.signIn()
         let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(googleResultModel: signInGoogleResult)
-        let user = DBUser(auth: authDataResult)
-        try await UserManager.shared.createNewUser(user: user)
+        return await alreadyRegistered(userId: authDataResult.uid)
     }
     
-    func signInApple() async throws {
+    func signInApple() async throws -> Bool {
         let helper = SignInAppleHelper()
         let signInAppleResult = try await helper.startSignInWithAppleFlow()
         let authDataResult = try await AuthenticationManager.shared.signInWithApple(appleResultModel: signInAppleResult)
-        let user = DBUser(auth: authDataResult)
+        return await alreadyRegistered(userId: authDataResult.uid)
+    }
+    
+    func alreadyRegistered(userId: String) async -> Bool {
+        do {
+            let user = try await UserManager.shared.getUser(userId: userId)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    func createUser() async throws {
+        guard
+            !fullName.isEmpty,
+            !nickname.isEmpty else {
+            throw SignInError.invalidInputs
+        }
+        let authenticatedUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        let user = DBUser(auth: authenticatedUser, fullName: fullName, nickname: nickname)
         try await UserManager.shared.createNewUser(user: user)
     }
+
 }
 
 enum SignInError: LocalizedError {
@@ -67,6 +89,7 @@ enum SignInError: LocalizedError {
     case invalidPassword
     case mismatchedPasswords
     case noUserFound
+    case invalidInputs
     
     var errorDescription: String? {
         switch self {
@@ -78,6 +101,8 @@ enum SignInError: LocalizedError {
             return "Mismatched passwords"
         case .noUserFound:
             return "No user found for this email address"
+        case .invalidInputs:
+            return "You must enter values"
         }
     }
 }

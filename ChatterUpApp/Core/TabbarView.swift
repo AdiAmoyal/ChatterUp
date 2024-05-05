@@ -16,6 +16,7 @@ struct TabbarView: View {
             NavigationStack {
                 // Chats View
                 Text("Chats View")
+                Text("\(try? AuthenticationManager.shared.getAuthenticatedUser().uid)")
             }
             .tabItem {
                 Image(systemName: "bubble.left.and.text.bubble.right.fill")
