@@ -7,8 +7,20 @@
 
 import SwiftUI
 
+@MainActor
+final class TabbarViewModel: ObservableObject {
+    
+    @Published var currentUser: DBUser?
+    
+    func getCurrentUser() async throws {
+        let authenticatedUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.currentUser = try await UserManager.shared.getUser(userId: authenticatedUser.uid)
+    }
+}
+
 struct TabbarView: View {
     
+    @StateObject private var viewmodel = TabbarViewModel()
     @Binding var showSignInView: Bool
     
     var body: some View {
@@ -16,7 +28,6 @@ struct TabbarView: View {
             NavigationStack {
                 // Chats View
                 Text("Chats View")
-                Text("\(try? AuthenticationManager.shared.getAuthenticatedUser().uid)")
             }
             .tabItem {
                 Image(systemName: "bubble.left.and.text.bubble.right.fill")
@@ -24,7 +35,7 @@ struct TabbarView: View {
             }
             
             NavigationStack {
-                ProfileView(showSignInView: $showSignInView)
+                ProfileLoadingView(user: $viewmodel.currentUser, showSignInView: $showSignInView)
             }
             .tabItem {
                 Image(systemName: "person.fill")
@@ -32,6 +43,15 @@ struct TabbarView: View {
             }
         }
         .accentColor(.theme.primaryBlue)
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewmodel.getCurrentUser()
+                } catch {
+                    
+                }
+            }
+        })
     }
 }
 

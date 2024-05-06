@@ -17,6 +17,7 @@ struct DBUser: Codable {
     let fullName: String?
     let nickname: String?
     let profilePicture: String?
+    let status: StatusOption?
     let dateCreated :Date?
     
     init(auth: AuthDataResultModel,
@@ -30,6 +31,7 @@ struct DBUser: Codable {
         self.fullName = fullName
         self.nickname = nickname
         self.profilePicture = profilePicture
+        self.status = .available
         self.dateCreated = Date()
     }
     
@@ -38,6 +40,7 @@ struct DBUser: Codable {
          photoUrl: String? = nil,
          fullName: String? = nil,
          nickname: String? = nil,
+         status: StatusOption? = nil,
          profilePicture: String? = nil,
          dateCreated :Date? = nil
     ) {
@@ -47,6 +50,7 @@ struct DBUser: Codable {
         self.fullName = fullName
         self.nickname = nickname
         self.profilePicture = profilePicture
+        self.status = status
         self.dateCreated = dateCreated
     }
     
@@ -57,6 +61,7 @@ struct DBUser: Codable {
         case fullName = "full_name"
         case nickname = "nickname"
         case profilePicture = "profile_picture"
+        case status = "status"
         case dateCreated = "date_created"
     }
     
@@ -68,6 +73,7 @@ struct DBUser: Codable {
         self.fullName = try container.decodeIfPresent(String.self, forKey: .fullName)
         self.nickname = try container.decodeIfPresent(String.self, forKey: .nickname)
         self.profilePicture = try container.decodeIfPresent(String.self, forKey: .profilePicture)
+        self.status = try container.decodeIfPresent(StatusOption.self, forKey: .status)
         self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
     }
     
@@ -79,6 +85,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.fullName, forKey: .fullName)
         try container.encodeIfPresent(self.nickname, forKey: .nickname)
         try container.encodeIfPresent(self.profilePicture, forKey: .profilePicture)
+        try container.encodeIfPresent(self.status, forKey: .status)
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
     }
     
@@ -108,5 +115,14 @@ final class UserManager: ObservableObject {
     
     func getUser(userId: String) async throws -> DBUser {
         try await userDocument(userId: userId).getDocument(as: DBUser.self)
+    }
+    
+    func updateUserDetails(userId: String, nickname: String, status: StatusOption) async throws {
+        let data: [String: Any] = [
+            "nickname": nickname,
+            "status": status.rawValue
+        ]
+        
+        try await userDocument(userId: userId).updateData(data)
     }
 }

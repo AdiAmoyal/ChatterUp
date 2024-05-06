@@ -7,10 +7,21 @@
 
 import Foundation
 
+@MainActor
 final class ProfileViewModel: ObservableObject {
     
-    @Published var selectedStatus: StatusOption = .available
+    @Published var user: DBUser
     @Published var authProviders: [AuthProviderOption] = []
+    @Published var selectedStatus: StatusOption = .available
+    @Published var nickName: String = "No User"
+    
+    init(user: DBUser) {
+        self.user = user
+        self.selectedStatus = user.status ?? .available
+        self.nickName = user.nickname ?? "No nickname"
+        
+        loadAuthProvider()
+    }
     
     func loadAuthProvider() {
         if let providers = try? AuthenticationManager.shared.getProviders() {
@@ -18,6 +29,15 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
+    func saveChanges() async throws {
+        do {
+            try await UserManager.shared.updateUserDetails(userId: user.userId, nickname: nickName, status: selectedStatus)
+        } catch {
+            throw error
+        }
+        
+    }
+     
     func signOut() throws {
         try AuthenticationManager.shared.signOut()
     }
@@ -35,7 +55,7 @@ final class ProfileViewModel: ObservableObject {
     }
 }
 
-enum StatusOption: String, CaseIterable {
+enum StatusOption: String, Codable, CaseIterable {
     case available, busy, atSchool, atWork, batteryAboutToDie, cantTalk, inAMeeting, atTheGym, sleeping, urgentCallsOnly
     
     var title: String {

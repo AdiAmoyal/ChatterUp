@@ -19,6 +19,7 @@ final class SignInViewModel: ObservableObject {
     @Published var nickname: String = ""
     // TODO: Profile picture
     
+    
     func signIn() async throws {
         guard
             !email.isEmpty,
@@ -64,7 +65,7 @@ final class SignInViewModel: ObservableObject {
     
     func alreadyRegistered(userId: String) async -> Bool {
         do {
-            let user = try await UserManager.shared.getUser(userId: userId)
+            let _ = try await UserManager.shared.getUser(userId: userId)
             return true
         } catch {
             return false

@@ -7,39 +7,71 @@
 
 import SwiftUI
 
+struct ProfileLoadingView: View {
+    
+    @Binding var currentUser: DBUser?
+    @Binding var showSignInView: Bool
+    
+    init(user: Binding<DBUser?>, showSignInView: Binding<Bool>) {
+        self._currentUser = user
+        self._showSignInView = showSignInView
+    }
+    
+    var body: some View {
+        ZStack {
+            if let user = currentUser {
+                ProfileView(user: user, showSignInView: $showSignInView)
+            } else {
+                // TODO: Add No Data View
+                Text("No User")
+            }
+        }
+    }
+    
+}
+
 struct ProfileView: View {
     
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var viewModel: ProfileViewModel
     @Binding var showSignInView: Bool
-    @State private var nickName: String = "Nick Name"
+    @FocusState private var isNicknameFocused: Bool
     
     // Alert
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var alertType: String = ""
     
+    init(user: DBUser, showSignInView: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+        self._showSignInView = showSignInView
+    }
+    
     var body: some View {
         ZStack {
-            
             Color.theme.background
                 .ignoresSafeArea()
             
-            VStack(spacing: 40) {
-                VStack(spacing: 18) {
-                    profilePicture
-                    profileDetails
-                }
-                
-                VStack(spacing: 18) {
-                    CustomTextField(text: $nickName, symbol: "shared.with.you", placeHolder: nickName, type: "Nickname")
+            ScrollView {
+                VStack(spacing: 30) {
+                    VStack(spacing: 18) {
+                        profilePicture
+                        profileDetails
+                    }
                     
-                    statusPicker
+                    VStack(spacing: 18) {
+                        CustomTextField(text: $viewModel.nickName, symbol: "shared.with.you", placeHolder: viewModel.nickName, type: "Nickname")
+                            .focused($isNicknameFocused)
+                        
+                        statusPicker
+                        saveButton
+                    }
+                    
+                    Spacer()
+                    Divider()
+                    
+                    buttonsSection
+                    
                 }
-                
-                Spacer()
-                
-                buttonsSection
-                
             }
             .foregroundStyle(Color.theme.body)
             .padding()
@@ -47,15 +79,12 @@ struct ProfileView: View {
         .alert(isPresented: $showAlert, content: {
             getAlert(type: alertType)
         })
-        .onAppear(perform: {
-            viewModel.loadAuthProvider()
-        })
     }
 }
 
 #Preview {
     NavigationStack {
-        ProfileView(showSignInView: .constant(false))
+        ProfileView(user: DBUser(userId: "1", email: "a@test.gmail.com", photoUrl: nil, fullName: "Adi Amoyal", nickname: "Test", status: .atWork, profilePicture: nil, dateCreated: Date()), showSignInView: .constant(false))
     }
 }
 
@@ -107,14 +136,16 @@ extension ProfileView {
     
     private var profileDetails: some View {
         VStack(spacing: 4) {
-            Text("Full Name")
+            Text(viewModel.user.fullName ?? "No Fullname")
                 .foregroundStyle(Color.theme.title)
                 .font(.title)
                 .bold()
             
-            Text("adi.amoyal02@gmail.com")
-                .disabled(true)
-                .font(.headline)
+            if viewModel.authProviders.contains(.email) {
+                Text(viewModel.user.email ?? "No Email")
+                    .disabled(true)
+                    .font(.headline)
+            }
         }
     }
     
@@ -135,6 +166,24 @@ extension ProfileView {
                     .stroke(Color.theme.stroke ,lineWidth: 2)
             )
         }
+    }
+    
+    private var saveButton: some View {
+        CustomActionButton(action: {
+            Task {
+                do {
+                    try await viewModel.saveChanges()
+                    isNicknameFocused = false
+                    alertMessage = "saved Successfully"
+                    alertType = ""
+                    showAlert = true
+                } catch {
+                    alertMessage = error.localizedDescription
+                    alertType = ""
+                    showAlert = true
+                }
+            }
+        }, title: "Save Changes", color: .theme.primaryBlue)
     }
     
     private var buttonsSection: some View {
