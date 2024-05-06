@@ -27,7 +27,7 @@ final class ContentViewModel: ObservableObject {
     }
     
     func deleteAccount() async throws {
-        try await AuthenticationManager.shared.delet()
+        try await AuthenticationManager.shared.delete()
     }
     
 }

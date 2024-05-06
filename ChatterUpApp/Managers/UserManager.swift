@@ -125,4 +125,8 @@ final class UserManager: ObservableObject {
         
         try await userDocument(userId: userId).updateData(data)
     }
+    
+    func deleteUser(userId: String) async throws {
+         try await userDocument(userId: userId).delete()
+    }
 }

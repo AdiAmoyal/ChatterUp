@@ -70,11 +70,10 @@ final class AuthenticationManager {
         try Auth.auth().signOut()
     }
     
-    func delet() async throws {
+    func delete() async throws {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badURL)
+            throw AuthenticationError.noUser
         }
-        
         try await user.delete()
     }
     

@@ -93,6 +93,7 @@
 		9138C2A22BE70C0300DCA534 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */,
 				9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */,
 			);
 			path = Subviews;
@@ -213,7 +214,6 @@
 				9138C2A22BE70C0300DCA534 /* Subviews */,
 				91908A122BDC51B800A95B8D /* SignInView.swift */,
 				91908A142BDC51E300A95B8D /* SignInViewModel.swift */,
-				91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
