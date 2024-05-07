@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		912AA6C82BEACD0500990CC4 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912AA6C72BEACD0500990CC4 /* ChatManager.swift */; };
+		912AA6CA2BEAD72600990CC4 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912AA6C92BEAD72600990CC4 /* NewChatView.swift */; };
+		912AA6CC2BEAE51100990CC4 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912AA6CB2BEAE51100990CC4 /* Query.swift */; };
+		912AA6CE2BEAE77600990CC4 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912AA6CD2BEAE77600990CC4 /* CustomSearchBar.swift */; };
 		9138C2A42BE70D2000DCA534 /* CompleteDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */; };
+		9147285F2BEACBBE002C8154 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9147285E2BEACBBE002C8154 /* Message.swift */; };
 		91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DCC2BE456A9006F2A48 /* TabbarView.swift */; };
 		91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD02BE45BAF006F2A48 /* ProfileView.swift */; };
 		91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */; };
@@ -45,7 +50,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		912AA6C72BEACD0500990CC4 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		912AA6C92BEAD72600990CC4 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
+		912AA6CB2BEAE51100990CC4 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		912AA6CD2BEAE77600990CC4 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		9138C2A32BE70D2000DCA534 /* CompleteDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteDetailsView.swift; sourceTree = "<group>"; };
+		9147285E2BEACBBE002C8154 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		91571DCC2BE456A9006F2A48 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		91571DD02BE45BAF006F2A48 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		91571DD22BE467EB006F2A48 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -105,11 +115,29 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		9147285A2BEAB9F9002C8154 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */,
+				91571DCC2BE456A9006F2A48 /* TabbarView.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		9147285D2BEACBAE002C8154 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9147285E2BEACBBE002C8154 /* Message.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		91571DCE2BE45B90006F2A48 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
 				91CFBE062BE97C3D0001C2DA /* Subviews */,
 				91CFBE042BE97C280001C2DA /* ChatsView.swift */,
+				912AA6C92BEAD72600990CC4 /* NewChatView.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -137,6 +165,7 @@
 			children = (
 				9189E83D2BDC8E5C00DF915E /* AuthenticationManager.swift */,
 				916EF7962BE58C9E000B8E03 /* UserManager.swift */,
+				912AA6C72BEACD0500990CC4 /* ChatManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -167,6 +196,7 @@
 				91908A192BDC667D00A95B8D /* GoogleService-Info.plist */,
 				91EDC98B2BE329360012BFD0 /* Helpers */,
 				9189E83C2BDC8E4400DF915E /* Managers */,
+				9147285D2BEACBAE002C8154 /* Models */,
 				91908A0F2BDC519300A95B8D /* Core */,
 				91908A0C2BDC513A00A95B8D /* Extensions */,
 				919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */,
@@ -190,6 +220,7 @@
 			children = (
 				91908A0D2BDC514A00A95B8D /* Color.swift */,
 				91EDC9892BE326860012BFD0 /* UIApplication.swift */,
+				912AA6CB2BEAE51100990CC4 /* Query.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,13 +228,12 @@
 		91908A0F2BDC519300A95B8D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9147285A2BEAB9F9002C8154 /* Tabbar */,
 				91571DCF2BE45B9C006F2A48 /* Profile */,
 				91571DCE2BE45B90006F2A48 /* Chats */,
 				91908A162BDC520100A95B8D /* Components */,
 				91908A102BDC519E00A95B8D /* Authentication */,
 				9189E8412BDC95D200DF915E /* RootView.swift */,
-				91571DCC2BE456A9006F2A48 /* TabbarView.swift */,
-				918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -232,6 +262,7 @@
 			children = (
 				91908A172BDC521500A95B8D /* CustomTextField.swift */,
 				91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */,
+				912AA6CD2BEAE77600990CC4 /* CustomSearchBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -355,14 +386,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				91EDC98A2BE326860012BFD0 /* UIApplication.swift in Sources */,
+				912AA6C82BEACD0500990CC4 /* ChatManager.swift in Sources */,
 				91908A012BDC50C800A95B8D /* ContentView.swift in Sources */,
 				91CFBE082BE987D30001C2DA /* ChatRowView.swift in Sources */,
 				91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */,
 				91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */,
 				9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */,
 				91910FA22BE32A1E00BAB38E /* SignInWithGoogleHelper.swift in Sources */,
+				912AA6CC2BEAE51100990CC4 /* Query.swift in Sources */,
 				91EDC97C2BE2EC390012BFD0 /* CustomActionButton.swift in Sources */,
 				919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */,
+				9147285F2BEACBBE002C8154 /* Message.swift in Sources */,
 				91908A182BDC521500A95B8D /* CustomTextField.swift in Sources */,
 				91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */,
 				9189E8422BDC95D200DF915E /* RootView.swift in Sources */,
@@ -371,10 +405,12 @@
 				9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */,
 				918A957C2BE9BDEF00CC0C4C /* CustomTabbarItem.swift in Sources */,
 				91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */,
+				912AA6CA2BEAD72600990CC4 /* NewChatView.swift in Sources */,
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,
 				91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */,
 				91908A132BDC51B800A95B8D /* SignInView.swift in Sources */,
 				91908A0E2BDC514A00A95B8D /* Color.swift in Sources */,
+				912AA6CE2BEAE77600990CC4 /* CustomSearchBar.swift in Sources */,
 				91571DD52BE46BD3006F2A48 /* StatusPickerView.swift in Sources */,
 				916EF7972BE58C9E000B8E03 /* UserManager.swift in Sources */,
 				91908A152BDC51E300A95B8D /* SignInViewModel.swift in Sources */,
@@ -516,6 +552,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChatterUpApp/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "ChatterUp needs access to your contacts to start a new chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -547,6 +584,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChatterUpApp/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "ChatterUp needs access to your contacts to start a new chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

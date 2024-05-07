@@ -117,6 +117,15 @@ final class UserManager: ObservableObject {
         try await userDocument(userId: userId).getDocument(as: DBUser.self)
     }
     
+    func getAllUsers() async throws -> [DBUser] {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        let user = try await getUser(userId: authUser.uid)
+        
+        return try await userCollection
+            .whereField(DBUser.CodingKeys.userId.rawValue, isNotEqualTo: user.userId)
+            .getDocuments(as: DBUser.self)
+    }
+    
     func updateUserDetails(userId: String, nickname: String, status: StatusOption) async throws {
         let data: [String: Any] = [
             "nickname": nickname,
@@ -127,6 +136,6 @@ final class UserManager: ObservableObject {
     }
     
     func deleteUser(userId: String) async throws {
-         try await userDocument(userId: userId).delete()
+        try await userDocument(userId: userId).delete()
     }
 }
