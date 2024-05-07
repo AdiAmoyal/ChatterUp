@@ -74,6 +74,7 @@ struct ProfileView: View {
                     
                 }
             }
+            .scrollIndicators(.hidden)
             .foregroundStyle(Color.theme.body)
             .padding()
         }

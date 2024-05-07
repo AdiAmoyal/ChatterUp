@@ -18,6 +18,7 @@
 		9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E83D2BDC8E5C00DF915E /* AuthenticationManager.swift */; };
 		9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */; };
 		9189E8422BDC95D200DF915E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E8412BDC95D200DF915E /* RootView.swift */; };
+		918A957C2BE9BDEF00CC0C4C /* CustomTabbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */; };
 		919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */; };
 		91908A012BDC50C800A95B8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91908A002BDC50C800A95B8D /* ContentView.swift */; };
 		91908A032BDC50CA00A95B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91908A022BDC50CA00A95B8D /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		9189E83D2BDC8E5C00DF915E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		9189E8412BDC95D200DF915E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarItem.swift; sourceTree = "<group>"; };
 		919089FB2BDC50C800A95B8D /* ChatterUpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatterUpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterUpAppApp.swift; sourceTree = "<group>"; };
 		91908A002BDC50C800A95B8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				91908A102BDC519E00A95B8D /* Authentication */,
 				9189E8412BDC95D200DF915E /* RootView.swift */,
 				91571DCC2BE456A9006F2A48 /* TabbarView.swift */,
+				918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				9138C2A42BE70D2000DCA534 /* CompleteDetailsView.swift in Sources */,
 				91CFBE052BE97C290001C2DA /* ChatsView.swift in Sources */,
 				9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */,
+				918A957C2BE9BDEF00CC0C4C /* CustomTabbarItem.swift in Sources */,
 				91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */,
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,
 				91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */,

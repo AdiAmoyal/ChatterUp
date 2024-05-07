@@ -41,6 +41,7 @@ struct ChatsView: View {
                         Divider()
                     }
                 }
+                .scrollIndicators(.hidden)
                 .padding(.horizontal, 2)
                 
             }
