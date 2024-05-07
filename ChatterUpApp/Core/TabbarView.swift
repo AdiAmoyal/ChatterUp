@@ -26,8 +26,7 @@ struct TabbarView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                // Chats View
-                Text("Chats View")
+                ChatsView()
             }
             .tabItem {
                 Image(systemName: "bubble.left.and.text.bubble.right.fill")

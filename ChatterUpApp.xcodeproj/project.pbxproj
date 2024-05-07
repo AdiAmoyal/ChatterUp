@@ -33,6 +33,8 @@
 		91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91908A242BDC6A8500A95B8D /* SignUpView.swift */; };
 		91910FA22BE32A1E00BAB38E /* SignInWithGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91910FA12BE32A1E00BAB38E /* SignInWithGoogleHelper.swift */; };
 		91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A037FF2BE4386200C41248 /* SignInWithAppleHelper.swift */; };
+		91CFBE052BE97C290001C2DA /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFBE042BE97C280001C2DA /* ChatsView.swift */; };
+		91CFBE082BE987D30001C2DA /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFBE072BE987D20001C2DA /* ChatRowView.swift */; };
 		91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */; };
 		91EDC97C2BE2EC390012BFD0 /* CustomActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */; };
 		91EDC9822BE324090012BFD0 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91EDC9812BE324090012BFD0 /* GoogleService-Info-2.plist */; };
@@ -65,6 +67,8 @@
 		91910FA12BE32A1E00BAB38E /* SignInWithGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithGoogleHelper.swift; sourceTree = "<group>"; };
 		91A037FE2BE4358B00C41248 /* ChatterUpApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatterUpApp.entitlements; sourceTree = "<group>"; };
 		91A037FF2BE4386200C41248 /* SignInWithAppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleHelper.swift; sourceTree = "<group>"; };
+		91CFBE042BE97C280001C2DA /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		91CFBE072BE987D20001C2DA /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
 		91EDC9772BE2E9670012BFD0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		91EDC97B2BE2EC390012BFD0 /* CustomActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionButton.swift; sourceTree = "<group>"; };
 		91EDC9812BE324090012BFD0 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		91571DCE2BE45B90006F2A48 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				91CFBE062BE97C3D0001C2DA /* Subviews */,
+				91CFBE042BE97C280001C2DA /* ChatsView.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -243,6 +249,14 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		91CFBE062BE97C3D0001C2DA /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				91CFBE072BE987D20001C2DA /* ChatRowView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		91EDC98B2BE329360012BFD0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +353,7 @@
 			files = (
 				91EDC98A2BE326860012BFD0 /* UIApplication.swift in Sources */,
 				91908A012BDC50C800A95B8D /* ContentView.swift in Sources */,
+				91CFBE082BE987D30001C2DA /* ChatRowView.swift in Sources */,
 				91571DCD2BE456A9006F2A48 /* TabbarView.swift in Sources */,
 				91EDC9782BE2E9670012BFD0 /* ForgotPasswordView.swift in Sources */,
 				9189E83E2BDC8E5C00DF915E /* AuthenticationManager.swift in Sources */,
@@ -349,6 +364,7 @@
 				91571DD12BE45BAF006F2A48 /* ProfileView.swift in Sources */,
 				9189E8422BDC95D200DF915E /* RootView.swift in Sources */,
 				9138C2A42BE70D2000DCA534 /* CompleteDetailsView.swift in Sources */,
+				91CFBE052BE97C290001C2DA /* ChatsView.swift in Sources */,
 				9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */,
 				91571DD32BE467EB006F2A48 /* ProfileViewModel.swift in Sources */,
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,

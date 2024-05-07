@@ -19,8 +19,7 @@ final class SignUpViewModel: ObservableObject {
     
     func signUp() async throws {
         guard !validationInputs() else {
-            print("Inputs are invalid")
-            return
+            throw SignInError.invalidInputs
         }
         
         let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
