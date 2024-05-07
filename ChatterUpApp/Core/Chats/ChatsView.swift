@@ -18,28 +18,21 @@ struct ChatsView: View {
                 .ignoresSafeArea()
             
             VStack {
-                HStack {
-                    Text("Chats")
-                        .foregroundStyle(Color.theme.title)
-                        .font(.title)
-                        .bold()
-                    
-                    Spacer()
-                }
+                title
                 
                 VStack(spacing: 14) {
-                    TextField("Search by name...", text: $searchText)
-                        .padding(15)
-                        .font(.headline)
-                        .focused($isSearchFocus)
-                        .background(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(isSearchFocus ? Color.theme.primaryBlue : Color.theme.stroke ,lineWidth: 2)
-                        )
+                    searchBar
                     
                     ScrollView {
-                        ChatRowView(contactName: "Adi Amoyal", lastMessage: "Test message how are you today?", messageTime: "2:50 AM", newMessagesCount: 0)
-                        Divider()
+                        NavigationLink {
+                            Text("Chat !!")
+                        } label: {
+                            VStack {
+                                ChatRowView(contactName: "Adi Amoyal", lastMessage: "Test message how are you today?", messageTime: "2:50 AM", newMessagesCount: 0)
+                                Divider()
+                            }
+                        }
+
                         ChatRowView(contactName: "Gal Slook", lastMessage: "What are you doing tonight. I have an idea for amazing date 🥰", messageTime: "1:30 PM", newMessagesCount: 1)
                         Divider()
                         ChatRowView(contactName: "Mom", lastMessage: "Whare are you?", messageTime: "11:50 AM", newMessagesCount: 0)
@@ -61,4 +54,31 @@ struct ChatsView: View {
     NavigationStack {
         ChatsView()
     }
+}
+
+extension ChatsView {
+    
+    private var title: some View {
+        HStack {
+            Text("Chats")
+                .foregroundStyle(Color.theme.title)
+                .font(.title)
+                .bold()
+            
+            Spacer()
+        }
+    }
+
+    private var searchBar: some View {
+        TextField("Search by name...", text: $searchText)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 12)
+            .font(.headline)
+            .focused($isSearchFocus)
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(isSearchFocus ? Color.theme.primaryBlue : Color.theme.stroke ,lineWidth: 2)
+            )
+    }
+    
 }

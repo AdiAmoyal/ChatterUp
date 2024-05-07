@@ -65,6 +65,7 @@ struct ProfileView: View {
                         statusPicker
                         saveButton
                     }
+                    .padding(.horizontal, 10)
                     
                     Spacer()
                     Divider()
@@ -218,6 +219,7 @@ extension ProfileView {
                 showAlert.toggle()
             }, title: "Delete account", color: .theme.red)
         }
+        .padding(.horizontal, 10)
     }
     
 }
