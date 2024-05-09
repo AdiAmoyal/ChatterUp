@@ -59,12 +59,6 @@ struct TabbarView: View {
             
             GeometryReader(content: { geometry in
                 VStack {
-                    if selectedTab == .chats {
-                        
-                    } else if selectedTab == .profile {
-                        
-                    }
-                    
                     switch selectedTab {
                     case .chats, .plus:
                         NavigationStack {
@@ -75,8 +69,6 @@ struct TabbarView: View {
                             ProfileLoadingView(user: $viewmodel.currentUser, showSignInView: $showSignInView)
                         }
                     }
-                    
-//                    Spacer()
                     
                     tabbar
                         .overlay {
@@ -89,7 +81,7 @@ struct TabbarView: View {
                 })
                 .background(
                     NavigationLink(
-                        destination: Text("Chat :)"),
+                        destination: ChatView(),
                         isActive: $showChatView,
                         label: {
                             EmptyView()

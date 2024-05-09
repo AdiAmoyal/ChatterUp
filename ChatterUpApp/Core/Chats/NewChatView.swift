@@ -100,7 +100,9 @@ extension NewChatView {
                 .padding(.vertical, 10)
                 .onTapGesture {
                     showNewChatView.toggle()
-                    showChatView.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        showChatView.toggle()
+                    }
                 }
                 Divider()
             }
