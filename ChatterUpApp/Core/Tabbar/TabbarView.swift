@@ -48,9 +48,11 @@ struct TabbarView: View {
     
     @StateObject private var viewmodel = TabbarViewModel()
     @Binding var showSignInView: Bool
+    
     @State var selectedTab: Tabs = .chats
     @State var showNewChatView: Bool = false
     @State var showChatView: Bool = false
+    @State var selectedChat: Chat? = nil
     
     var body: some View {
         ZStack {
@@ -62,7 +64,7 @@ struct TabbarView: View {
                     switch selectedTab {
                     case .chats, .plus:
                         NavigationStack {
-                            ChatsView()
+                            LoadingChatsView(user: $viewmodel.currentUser)
                         }
                     case .profile:
                         NavigationStack {
@@ -77,11 +79,11 @@ struct TabbarView: View {
                         }
                 }
                 .sheet(isPresented: $showNewChatView, content: {
-                    NewChatView(showNewChatView: $showNewChatView, showChatView: $showChatView)
+                    NewChatView(showNewChatView: $showNewChatView, showChatView: $showChatView, selectedChat: $selectedChat)
                 })
                 .background(
                     NavigationLink(
-                        destination: ChatView(),
+                        destination: LoadingChatView(chat: $selectedChat, currentUser: $viewmodel.currentUser),
                         isActive: $showChatView,
                         label: {
                             EmptyView()

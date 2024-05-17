@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ChatRowView: View {
     
-    let contactName: String
-    let lastMessage: String
-    let messageTime: String
+    let chatWith: DBUser
+    let lastMessage: Message
     let newMessagesCount: Int
     
     var body: some View {
@@ -42,26 +41,26 @@ struct ChatRowView: View {
     }
 }
 
-#Preview {
-    ChatRowView(contactName: "Adi Amoyal", lastMessage: "Test message hoe are you?", messageTime: "12:45", newMessagesCount: 0)
-}
+//#Preview {
+//    ChatRowView(chat: Chat(id: "1", participents: ["1", "2"], lasMessage: Message.messages.last ?? Message.message, messages: Message.messages), newMessagesCount: 0)
+//}
 
 extension ChatRowView {
     
     private var name: some View {
-        Text(contactName)
+        Text(chatWith.fullName ?? "No name")
             .font(.headline)
             .foregroundStyle(Color.theme.primaryBlue)
     }
     
     private var time: some View {
-        Text(messageTime)
+        Text(lastMessage.formattedTimeCreated)
             .font(.footnote)
             .bold()
     }
     
     private var content: some View {
-        Text(lastMessage)
+        Text(lastMessage.content ?? "")
             .font(.subheadline)
             .multilineTextAlignment(.leading)
             .lineLimit(2)

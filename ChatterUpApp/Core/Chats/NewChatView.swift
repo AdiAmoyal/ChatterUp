@@ -17,9 +17,28 @@ final class NewChatViewModel: ObservableObject {
         self.users = try await UserManager.shared.getAllUsers()
     }
     
-    func createChat(user: DBUser) {
-        print("Create new chat with: \(user.nickname ?? "")")
-        // TODO: return Chat id / Chat reference
+    func isChatExist(withUser: DBUser) async throws -> Chat? {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        let user = try await UserManager.shared.getUser(userId: authUser.uid)
+        let chats = try await UserManager.shared.getUserChats(userId: user.userId)
+        
+        let chat = chats.first { chat in
+            if let participents = chat.participents {
+                if participents.contains(where: { $0.userId == withUser.userId }) {
+                    return true
+                }
+                return false
+            }
+            return false
+        }
+        return chat
+    }
+    
+    func createChat(withUser: DBUser) async throws -> Chat {
+        // TODO: remove those rows of getting the user, need to save the current user in one place
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        let user = try await UserManager.shared.getUser(userId: authUser.uid)
+        return try await ChatManager.shared.createNewChat(for: [user, withUser])
     }
     
 }
@@ -29,6 +48,7 @@ struct NewChatView: View {
     @StateObject private var viewModel = NewChatViewModel()
     @Binding var showNewChatView: Bool
     @Binding var showChatView: Bool
+    @Binding var selectedChat: Chat?
     @State private var isLoading: Bool = false
     
     var body: some View {
@@ -65,7 +85,7 @@ struct NewChatView: View {
 }
 
 #Preview {
-    NewChatView(showNewChatView: .constant(true), showChatView: .constant(false))
+    NewChatView(showNewChatView: .constant(true), showChatView: .constant(false), selectedChat: .constant(nil))
 }
 
 extension NewChatView {
@@ -84,27 +104,29 @@ extension NewChatView {
     private var userList: some View {
         VStack {
             ForEach(viewModel.users, id: \.userId) { user in
-                HStack(spacing: 12) {
-                    Circle()
-                        .frame(width: 40, height: 40)
-                    
-                    VStack(alignment: .leading) {
-                        Text(user.fullName ?? "")
-                            .font(.headline)
-                        Text(user.status?.title ?? "")
-                            .font(.subheadline)
+                UserRowView(user: user)
+                    .onTapGesture {
+                        userRowOnTapGesture(user: user)
                     }
-                        
-                    Spacer()
-                }
-                .padding(.vertical, 10)
-                .onTapGesture {
-                    showNewChatView.toggle()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        showChatView.toggle()
-                    }
-                }
                 Divider()
+            }
+        }
+    }
+    
+    private func userRowOnTapGesture(user: DBUser) {
+        Task {
+            do {
+                if let chat = try await viewModel.isChatExist(withUser: user) {
+                    selectedChat = chat
+                } else {
+                    selectedChat = try await viewModel.createChat(withUser: user)
+                }
+                showNewChatView.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    showChatView.toggle()
+                }
+            } catch {
+                print(error)
             }
         }
     }

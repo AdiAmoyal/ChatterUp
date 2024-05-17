@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Message: Hashable {
+struct Message: Hashable, Codable {
     let id: String
     let senderId: String?   // ID of the user who sent the message
     let content: String?
@@ -21,6 +21,52 @@ struct Message: Hashable {
         formatter.dateFormat = "HH:mm"  // Customize date format as needed
         return formatter.string(from: timeCreated ?? Date())
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case senderId = "sender_id"
+        case content = "content"
+        case isRead = "is_read"
+        case type = "type"
+        case timeCreated = "time_created"
+    }
+    
+    init(id: String,
+         senderId: String?,
+         content: String?,
+         isRead: Bool?,
+         type: MessageType?,
+         timeCreated: Date?
+    ) {
+        self.id = id
+        self.senderId = senderId
+        self.content = content
+        self.isRead = isRead
+        self.type = type
+        self.timeCreated = timeCreated
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.senderId = try container.decodeIfPresent(String.self, forKey: .senderId)
+        self.content = try container.decodeIfPresent(String.self, forKey: .content)
+        self.isRead = try container.decodeIfPresent(Bool.self, forKey: .isRead)
+        self.type = try container.decodeIfPresent(MessageType.self, forKey: .type)
+        self.timeCreated = try container.decodeIfPresent(Date.self, forKey: .timeCreated)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.id, forKey: .id)
+        try container.encodeIfPresent(self.senderId, forKey: .senderId)
+        try container.encodeIfPresent(self.content, forKey: .content)
+        try container.encodeIfPresent(self.isRead, forKey: .isRead)
+        try container.encodeIfPresent(self.type, forKey: .type)
+        try container.encodeIfPresent(self.timeCreated, forKey: .timeCreated)
+    }
+    
+    static var message = Message(id: "1", senderId: "1", content: "How are you?", isRead: true, type: .text, timeCreated: Date())
     
     static var messages: [Message] = [
         Message(id: "1", senderId: "1", content: "How are you?", isRead: true, type: .text, timeCreated: Date()),
@@ -43,6 +89,6 @@ struct Message: Hashable {
     ]
 }
 
-enum MessageType {
+enum MessageType: String, Codable {
     case text, image
 }

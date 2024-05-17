@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-struct DBUser: Codable {
+struct DBUser: Codable, Equatable {
     let userId: String
     let email: String?
     let photoUrl: String?
@@ -89,6 +89,9 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
     }
     
+    static func ==(lhs: DBUser, rhs: DBUser) -> Bool {
+        return lhs.userId == rhs.userId
+    }
 }
 
 final class UserManager: ObservableObject {
@@ -107,6 +110,14 @@ final class UserManager: ObservableObject {
     
     private func userDocument(userId: String) -> DocumentReference {
         userCollection.document(userId)
+    }
+    
+    private func userChatsCollection(userId: String) -> CollectionReference {
+        userDocument(userId: userId).collection("chats")
+    }
+    
+    private func userChatDocument(userId: String, chatId: String) -> DocumentReference {
+        userChatsCollection(userId: userId).document(chatId)
     }
     
     func createNewUser(user: DBUser) async throws {
@@ -138,4 +149,14 @@ final class UserManager: ObservableObject {
     func deleteUser(userId: String) async throws {
         try await userDocument(userId: userId).delete()
     }
+    
+    func addUserChat(userId: String, chat: Chat) throws {
+        try userChatDocument(userId: userId, chatId: chat.id).setData(from: chat, merge: false)
+    }
+    
+    func getUserChats(userId: String) async throws -> [Chat] {
+        try await userChatsCollection(userId: userId)
+            .getDocuments(as: Chat.self)
+    }
+    
 }

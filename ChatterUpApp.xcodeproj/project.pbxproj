@@ -24,6 +24,7 @@
 		9189E8402BDC8E8700DF915E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */; };
 		9189E8422BDC95D200DF915E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E8412BDC95D200DF915E /* RootView.swift */; };
 		918A957C2BE9BDEF00CC0C4C /* CustomTabbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */; };
+		918F58812BF6E1B800DCA28B /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F58802BF6E1B800DCA28B /* UserRowView.swift */; };
 		919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */; };
 		91908A012BDC50C800A95B8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91908A002BDC50C800A95B8D /* ContentView.swift */; };
 		91908A032BDC50CA00A95B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91908A022BDC50CA00A95B8D /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		9189E83F2BDC8E8700DF915E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		9189E8412BDC95D200DF915E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarItem.swift; sourceTree = "<group>"; };
+		918F58802BF6E1B800DCA28B /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
 		919089FB2BDC50C800A95B8D /* ChatterUpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatterUpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterUpAppApp.swift; sourceTree = "<group>"; };
 		91908A002BDC50C800A95B8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				91CFBE072BE987D20001C2DA /* ChatRowView.swift */,
 				91CFDB152BEC2AC8003D7BF2 /* ChatMessageRowView.swift */,
+				918F58802BF6E1B800DCA28B /* UserRowView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				912AA6CE2BEAE77600990CC4 /* CustomSearchBar.swift in Sources */,
 				91571DD52BE46BD3006F2A48 /* StatusPickerView.swift in Sources */,
 				916EF7972BE58C9E000B8E03 /* UserManager.swift in Sources */,
+				918F58812BF6E1B800DCA28B /* UserRowView.swift in Sources */,
 				91908A152BDC51E300A95B8D /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
