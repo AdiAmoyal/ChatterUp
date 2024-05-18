@@ -20,7 +20,6 @@ final class ChatsViewModel: ObservableObject {
     
     func getAllChats() async throws {
         self.chats = try await UserManager.shared.getUserChats(userId: user.userId)
-        
     }
 }
 
@@ -72,13 +71,15 @@ struct ChatsView: View {
             .padding()
             .foregroundStyle(Color.theme.body)
         }
-        .task {
-            do {
-                try await viewModel.getAllChats()
-            } catch {
-                print(error)
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getAllChats()
+                } catch {
+                    print(error)
+                }
             }
-        }
+        })
     }
 }
 
@@ -109,12 +110,11 @@ extension ChatsView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.chats) { chat in
-                    if let chatWith = chat.participents?.filter( { $0.userId != viewModel.user.userId }).first,
-                       let lastMessage = chat.lastMessage {
+                    if let chatWith = chat.participents?.first(where: { $0.userId != viewModel.user.userId }) {
                         NavigationLink {
                             ChatView(chat: chat, currentUser: viewModel.user)
                         } label: {
-                            ChatRowView(chatWith: chatWith, lastMessage: lastMessage, newMessagesCount: 0)
+                            ChatRowView(chatWith: chatWith, lastMessage: chat.lastMessage, newMessagesCount: 0)
                         }
                         
                         Divider()

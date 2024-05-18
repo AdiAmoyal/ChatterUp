@@ -89,14 +89,13 @@ struct TabbarView: View {
                             EmptyView()
                         })
                 )
-                
-                
             })
         }
         .onAppear(perform: {
             Task {
                 do {
                     try await viewmodel.getCurrentUser()
+                    
                 } catch {
                     
                 }

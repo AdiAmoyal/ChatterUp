@@ -10,7 +10,7 @@ import SwiftUI
 struct ChatRowView: View {
     
     let chatWith: DBUser
-    let lastMessage: Message
+    let lastMessage: Message?
     let newMessagesCount: Int
     
     var body: some View {
@@ -54,13 +54,13 @@ extension ChatRowView {
     }
     
     private var time: some View {
-        Text(lastMessage.formattedTimeCreated)
+        Text(lastMessage?.formattedTimeCreated ?? "")
             .font(.footnote)
             .bold()
     }
     
     private var content: some View {
-        Text(lastMessage.content ?? "")
+        Text(lastMessage?.content ?? "No messages yet")
             .font(.subheadline)
             .multilineTextAlignment(.leading)
             .lineLimit(2)

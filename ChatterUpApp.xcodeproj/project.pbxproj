@@ -25,6 +25,7 @@
 		9189E8422BDC95D200DF915E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E8412BDC95D200DF915E /* RootView.swift */; };
 		918A957C2BE9BDEF00CC0C4C /* CustomTabbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */; };
 		918F58812BF6E1B800DCA28B /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F58802BF6E1B800DCA28B /* UserRowView.swift */; };
+		918F58842BF70AF800DCA28B /* NewChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F58832BF70AF800DCA28B /* NewChatViewModel.swift */; };
 		919089FF2BDC50C800A95B8D /* ChatterUpAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */; };
 		91908A012BDC50C800A95B8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91908A002BDC50C800A95B8D /* ContentView.swift */; };
 		91908A032BDC50CA00A95B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91908A022BDC50CA00A95B8D /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		9189E8412BDC95D200DF915E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		918A957B2BE9BDEF00CC0C4C /* CustomTabbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarItem.swift; sourceTree = "<group>"; };
 		918F58802BF6E1B800DCA28B /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
+		918F58832BF70AF800DCA28B /* NewChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewModel.swift; sourceTree = "<group>"; };
 		919089FB2BDC50C800A95B8D /* ChatterUpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatterUpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		919089FE2BDC50C800A95B8D /* ChatterUpAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterUpAppApp.swift; sourceTree = "<group>"; };
 		91908A002BDC50C800A95B8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,9 +143,9 @@
 		91571DCE2BE45B90006F2A48 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				918F58822BF70AE300DCA28B /* NewChat */,
 				91CFBE062BE97C3D0001C2DA /* Subviews */,
 				91CFBE042BE97C280001C2DA /* ChatsView.swift */,
-				912AA6C92BEAD72600990CC4 /* NewChatView.swift */,
 				91CFDB132BEC1BE5003D7BF2 /* ChatView.swift */,
 			);
 			path = Chats;
@@ -175,6 +177,15 @@
 				912AA6C72BEACD0500990CC4 /* ChatManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		918F58822BF70AE300DCA28B /* NewChat */ = {
+			isa = PBXGroup;
+			children = (
+				912AA6C92BEAD72600990CC4 /* NewChatView.swift */,
+				918F58832BF70AF800DCA28B /* NewChatViewModel.swift */,
+			);
+			path = NewChat;
 			sourceTree = "<group>";
 		};
 		919089F22BDC50C800A95B8D = {
@@ -419,6 +430,7 @@
 				91A038002BE4386200C41248 /* SignInWithAppleHelper.swift in Sources */,
 				91CFDB142BEC1BE5003D7BF2 /* ChatView.swift in Sources */,
 				91908A252BDC6A8500A95B8D /* SignUpView.swift in Sources */,
+				918F58842BF70AF800DCA28B /* NewChatViewModel.swift in Sources */,
 				91908A132BDC51B800A95B8D /* SignInView.swift in Sources */,
 				91908A0E2BDC514A00A95B8D /* Color.swift in Sources */,
 				912AA6CE2BEAE77600990CC4 /* CustomSearchBar.swift in Sources */,

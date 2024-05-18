@@ -156,6 +156,7 @@ final class UserManager: ObservableObject {
     
     func getUserChats(userId: String) async throws -> [Chat] {
         try await userChatsCollection(userId: userId)
+            .limit(to: 15)
             .getDocuments(as: Chat.self)
     }
     
