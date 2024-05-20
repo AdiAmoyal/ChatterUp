@@ -21,4 +21,9 @@ extension Query {
         return (documents, snapshot.documents.last)
     }
     
+    func startOptionally(afterDocument lastDocument: DocumentSnapshot?) -> Query {
+        guard let lastDocument else { return self }
+        return self.start(afterDocument: lastDocument)
+    }
+    
 }

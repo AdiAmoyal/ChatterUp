@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 @MainActor
 final class ChatsViewModel: ObservableObject {
@@ -13,13 +14,18 @@ final class ChatsViewModel: ObservableObject {
     @Published var chats: [Chat] = []
     @Published var searchText: String = ""
     @Published var user: DBUser
+    private var lastDocument: DocumentSnapshot? = nil
     
     init(user: DBUser) {
         self.user = user
     }
     
     func getAllChats() async throws {
-        self.chats = try await UserManager.shared.getUserChats(userId: user.userId)
+        let (newChats, lastDocument) = try await UserManager.shared.getUserChats(userId: user.userId, count: 12, lastDocument: lastDocument)
+        self.chats.append(contentsOf: newChats)
+        if let lastDocument {
+            self.lastDocument = lastDocument
+        }
     }
 }
 
@@ -45,6 +51,7 @@ struct ChatsView: View {
     
     init(user: DBUser) {
         _viewModel = StateObject(wrappedValue: ChatsViewModel(user: user))
+        print("CHATS VIEW INIT")
     }
     
     var body: some View {
@@ -108,9 +115,9 @@ extension ChatsView {
     
     private var chatsList: some View {
         ScrollView {
-            LazyVStack {
+            VStack {
                 ForEach(viewModel.chats) { chat in
-                    if let chatWith = chat.participents?.first(where: { $0.userId != viewModel.user.userId }) {
+                    if let chatWith = chat.participents.first(where: { $0.userId != viewModel.user.userId }) {
                         NavigationLink {
                             ChatView(chat: chat, currentUser: viewModel.user)
                         } label: {
@@ -118,6 +125,15 @@ extension ChatsView {
                         }
                         
                         Divider()
+                        
+                        if viewModel.chats.count > 7 && chat == viewModel.chats.last {
+                            ProgressView()
+                                .onAppear(perform: {
+                                    Task {
+                                        try await viewModel.getAllChats()
+                                    }
+                                })
+                        }
                     }
                 }
             }

@@ -20,14 +20,11 @@ final class NewChatViewModel: ObservableObject {
     func isChatExist(withUser: DBUser) async throws -> Chat? {
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
         let user = try await UserManager.shared.getUser(userId: authUser.uid)
-        let chats = try await UserManager.shared.getUserChats(userId: user.userId)
+        let (chats, _) = try await UserManager.shared.getUserChats(userId: user.userId, count: nil, lastDocument: nil)
         
         let chat = chats.first { chat in
-            if let participents = chat.participents {
-                if participents.contains(where: { $0.userId == withUser.userId }) {
-                    return true
-                }
-                return false
+            if chat.participents.contains(where: { $0.userId == withUser.userId }) {
+                return true
             }
             return false
         }

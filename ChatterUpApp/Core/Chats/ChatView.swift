@@ -6,19 +6,37 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 @MainActor
 final class ChatViewModel: ObservableObject {
     
+    @Published var messages: [Message] = []
     @Published var newMessageText: String = ""
     @Published var chat: Chat
     @Published var currentUser: DBUser
-    @Published var chatWith: [DBUser]
+    @Published var chatWith: DBUser?
+    private var lastDocument: DocumentSnapshot? = nil
     
     init(chat: Chat, currentUser: DBUser) {
         self.chat = chat
         self.currentUser = currentUser
-        self.chatWith = chat.participents?.filter({ $0.userId != currentUser.userId }) ?? []
+        self.chatWith = chat.participents.first(where: { $0.userId != currentUser.userId })
+    }
+    
+    func getAllMessages() async throws {
+        let (newMessages, lastDocument) = try await ChatManager.shared.getAllChatMessages(chatId: chat.id, lastDocument: lastDocument)
+        
+        self.messages.append(contentsOf: newMessages)
+        if let lastDocument {
+            self.lastDocument = lastDocument
+        }
+    }
+    
+    func addNewMessage() async throws {
+        // TODO: guard for validation (text is no empty)
+        guard let chatWith else { return }
+        try await ChatManager.shared.addNewMessage(chatId: chat.id, senderId: currentUser.userId, content: newMessageText, chatWith: chatWith.userId)
     }
 }
 
@@ -63,24 +81,7 @@ struct ChatView: View {
                 title
                 
                 ScrollView {
-                    ScrollViewReader { proxy in
-                        VStack {
-                            if let messages = viewModel.chat.messages,
-                               !messages.isEmpty {
-                                ForEach(messages, id: \.self) { message in
-                                    ChatMessageRowView(message: message)
-                                        .id(message.id)
-                                }
-                                .onChange(of: scrollToMessage) { oldValue, newValue in
-                                    proxy.scrollTo(newValue)
-                                }
-                            } else {
-                                Text("No messages")
-                                    .font(.title2)
-                                    .padding(.top, 50)
-                            }
-                        }
-                    }
+                    messagesList
                 }
                 Spacer()
                 
@@ -90,9 +91,17 @@ struct ChatView: View {
             .padding()
         }
         .onAppear(perform: {
-            if let message = viewModel.chat.lastMessage {
-                scrollToMessage = message.id
+            Task {
+                do {
+                    try await viewModel.getAllMessages()
+                    if let message = viewModel.chat.lastMessage {
+                        scrollToMessage = message.id
+                    }
+                } catch {
+                    print(error)
+                }
             }
+            
         })
     }
 }
@@ -110,7 +119,7 @@ extension ChatView {
             Circle()
                 .frame(width: 35, height: 35)
             
-            Text(viewModel.chatWith.first?.fullName ?? "No name")
+            Text(viewModel.chatWith?.fullName ?? "No name")
                 .font(.headline)
                 .foregroundStyle(Color.theme.title)
             
@@ -118,7 +127,28 @@ extension ChatView {
         }
     }
     
-    
+    private var messagesList: some View {
+        ScrollViewReader { proxy in
+            VStack {
+                if !viewModel.messages.isEmpty {
+                    ForEach(viewModel.messages, id: \.self) { message in
+                        ChatMessageRowView(message: message)
+                            .id(message.id)
+                            .background(message.senderId == viewModel.currentUser.userId ? Color.theme.primaryBlue : Color.theme.icon)
+                            .cornerRadius(15)
+                            .frame(maxWidth: .infinity, alignment: message.senderId == viewModel.currentUser.userId ? .trailing : .leading)
+                    }
+                    .onChange(of: scrollToMessage) { oldValue, newValue in
+                        proxy.scrollTo(newValue)
+                    }
+                } else {
+                    Text("No messages")
+                        .font(.title2)
+                        .padding(.top, 50)
+                }
+            }
+        }
+    }
     
     private var sendMessageSection: some View {
         HStack(spacing: 2) {
@@ -135,8 +165,15 @@ extension ChatView {
             Spacer()
             
             Button(action: {
-                // TODO: Create function in viewModel
-                scrollToMessage = Message.messages.last?.id ?? ""
+                Task {
+                    do {
+                        try await viewModel.addNewMessage()
+                        scrollToMessage = viewModel.messages.last?.id ?? ""
+                        viewModel.newMessageText = ""
+                    } catch {
+                        print(error)
+                    }
+                }
             }, label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundStyle(viewModel.newMessageText.isEmpty ? Color.theme.icon : Color.theme.primaryBlue)

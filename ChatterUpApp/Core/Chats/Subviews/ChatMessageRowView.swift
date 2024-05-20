@@ -15,18 +15,19 @@ struct ChatMessageRowView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(message.content ?? "")
                 .font(.body)
+                .multilineTextAlignment(.leading)
+                .lineLimit(10)
             
             Text(message.formattedTimeCreated)
                 .font(.footnote)
         }
         .padding()
         .foregroundStyle(Color.white)
-        .background(message.senderId == "1" ? Color.theme.primaryBlue : Color.theme.icon)
-        .cornerRadius(15)
-        .frame(maxWidth: .infinity, alignment: message.senderId == "1" ? .trailing : .leading)
+        .frame(minWidth: 80)
     }
 }
 
 #Preview {
-    ChatMessageRowView(message: Message(id: "1", senderId: "1", content: "How are you?", isRead: true, type: .text, timeCreated: Date()))
+    ChatMessageRowView(message: Message(id: "1", senderId: "1", content: "Hi", isRead: true, type: .text, timeCreated: Date()))
+        .background(Color.blue)
 }

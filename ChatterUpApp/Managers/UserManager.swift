@@ -120,6 +120,12 @@ final class UserManager: ObservableObject {
         userChatsCollection(userId: userId).document(chatId)
     }
     
+    private let encoder: Firestore.Encoder = {
+        let encoder = Firestore.Encoder()
+        //        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
+    }()
+    
     func createNewUser(user: DBUser) async throws {
         try userDocument(userId: user.userId).setData(from: user, merge: false)
     }
@@ -154,10 +160,37 @@ final class UserManager: ObservableObject {
         try userChatDocument(userId: userId, chatId: chat.id).setData(from: chat, merge: false)
     }
     
-    func getUserChats(userId: String) async throws -> [Chat] {
-        try await userChatsCollection(userId: userId)
-            .limit(to: 15)
-            .getDocuments(as: Chat.self)
+    private func getAllChatsQuery(userId: String) -> Query {
+        userChatsCollection(userId: userId)
     }
     
+    private func getAllChatsByLastMessageTimeCreatedQuery(userId: String, count: Int) -> Query {
+        userChatsCollection(userId: userId)
+            .limit(to: count)
+    }
+    
+    func getUserChats(userId: String, count: Int?, lastDocument: DocumentSnapshot?) async throws -> (documents: [Chat], lastDocument: DocumentSnapshot?){
+        var query: Query = getAllChatsQuery(userId: userId)
+        
+        if let count {
+            query = getAllChatsByLastMessageTimeCreatedQuery(userId: userId, count: count)
+        }
+        
+        return try await query
+            .startOptionally(afterDocument: lastDocument)
+            .getDocumentsWithSnapshot(as: Chat.self)
+    }
+    
+    func updateUserChatLastMessage(chatId: String, userId: String, message: Message) async throws {
+        guard let data = try? encoder.encode(message) else {
+            throw URLError(.badURL)
+        }
+        
+        let dict: [String: Any] = [
+            Chat.CodingKeys.lastMessage.rawValue: data
+        ]
+        
+        try await userChatDocument(userId: userId, chatId: chatId).updateData(dict)
+    }
+
 }
