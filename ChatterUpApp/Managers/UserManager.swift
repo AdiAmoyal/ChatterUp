@@ -99,6 +99,7 @@ final class UserManager: ObservableObject {
     static let shared = UserManager()
     
     @Published var currentUser: DBUser? // Current authenticated user
+    private var userChatsListener: ListenerRegistration? = nil
     
     private init() { }
     
@@ -179,6 +180,13 @@ final class UserManager: ObservableObject {
         return try await query
             .startOptionally(afterDocument: lastDocument)
             .getDocumentsWithSnapshot(as: Chat.self)
+    }
+
+    func addListenerForAllUserChats(userId: String) -> AnyPublisher<[Chat], Error> {
+        let (publisher, listener) = userChatsCollection(userId: userId)
+            .addSnapshotListener(as: Chat.self)
+        self.userChatsListener = listener
+        return publisher
     }
     
     func updateUserChatLastMessage(chatId: String, userId: String, message: Message) async throws {

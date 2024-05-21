@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -26,4 +27,24 @@ extension Query {
         return self.start(afterDocument: lastDocument)
     }
     
+    func aggregateCount() async throws -> Int {
+        let snapshot = try await self.count.getAggregation(source: .server)
+        return Int(truncating: snapshot.count)
+    }
+    
+    func addSnapshotListener<T>(as type: T.Type) -> (AnyPublisher<[T], Error>, ListenerRegistration) where T : Decodable {
+        let publisher = PassthroughSubject<[T], Error>()
+        
+        let listener = self.addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+            let data: [T] = documents.compactMap({ try? $0.data(as: T.self) })
+            publisher.send(data)
+        }
+        
+        return (publisher.eraseToAnyPublisher(), listener)
+    }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import Combine
 
 @MainActor
 final class ChatsViewModel: ObservableObject {
@@ -16,8 +17,20 @@ final class ChatsViewModel: ObservableObject {
     @Published var user: DBUser
     private var lastDocument: DocumentSnapshot? = nil
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(user: DBUser) {
         self.user = user
+    }
+    
+    func addListenerForChats() {
+        UserManager.shared.addListenerForAllUserChats(userId: user.userId)
+            .sink { complition in
+                
+            } receiveValue: { [weak self] chats in
+                self?.chats = chats
+            }
+            .store(in: &cancellables)
     }
     
     func getAllChats() async throws {
@@ -48,10 +61,10 @@ struct ChatsView: View {
 
     @StateObject private var viewModel: ChatsViewModel
     @FocusState private var isSearchFocus: Bool
+    @State private var didApear: Bool = false
     
     init(user: DBUser) {
         _viewModel = StateObject(wrappedValue: ChatsViewModel(user: user))
-        print("CHATS VIEW INIT")
     }
     
     var body: some View {
@@ -78,15 +91,15 @@ struct ChatsView: View {
             .padding()
             .foregroundStyle(Color.theme.body)
         }
-        .onAppear(perform: {
+        .onFirstAppear {
             Task {
                 do {
-                    try await viewModel.getAllChats()
+                    viewModel.addListenerForChats()
                 } catch {
                     print(error)
                 }
             }
-        })
+        }
     }
 }
 
