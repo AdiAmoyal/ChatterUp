@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Combine
 
 struct Chat: Identifiable, Codable, Equatable {
     let id: String
@@ -60,6 +61,7 @@ final class ChatManager {
     private init() { }
     
     private var chatsCollection = Firestore.firestore().collection("chats")
+    private var chatMessagesListener: ListenerRegistration? = nil
     
     private func chatDocument(chatId: String) -> DocumentReference {
         chatsCollection.document(chatId)
@@ -112,6 +114,17 @@ final class ChatManager {
             .limit(to: 20)
             .startOptionally(afterDocument: lastDocument)
             .getDocumentsWithSnapshot(as: Message.self)
+    }
+    
+    func addListenerForAllChatMessages(chatId: String) -> AnyPublisher<[Message], Error> {
+        let (publisher, listener) = chatMessagesCollection(chatId: chatId)
+            .addSnapshotListener(as: Message.self)
+        self.chatMessagesListener = listener
+        return publisher
+    }
+    
+    func removeListenerForAllChatMessages() {
+        self.chatMessagesListener?.remove()
     }
 
 }

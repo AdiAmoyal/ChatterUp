@@ -33,6 +33,10 @@ final class ChatsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func removeListenerForChats() {
+        UserManager.shared.removeListenerForAllUserChats()
+    }
+    
     func getAllChats() async throws {
         let (newChats, lastDocument) = try await UserManager.shared.getUserChats(userId: user.userId, count: 12, lastDocument: lastDocument)
         self.chats.append(contentsOf: newChats)
@@ -91,15 +95,8 @@ struct ChatsView: View {
             .padding()
             .foregroundStyle(Color.theme.body)
         }
-        .onFirstAppear {
-            Task {
-                do {
-                    viewModel.addListenerForChats()
-                } catch {
-                    print(error)
-                }
-            }
-        }
+        .onFirstAppear(perform: viewModel.addListenerForChats)
+        .onDisappear(perform: viewModel.removeListenerForChats)
     }
 }
 

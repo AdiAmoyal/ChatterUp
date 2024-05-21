@@ -218,11 +218,11 @@
 		919089FD2BDC50C800A95B8D /* ChatterUpApp */ = {
 			isa = PBXGroup;
 			children = (
-				913CA7732BFC1A9B005BC677 /* ViewModifiers */,
 				91A037FE2BE4358B00C41248 /* ChatterUpApp.entitlements */,
 				91EDC9882BE324B90012BFD0 /* Info.plist */,
 				91EDC9812BE324090012BFD0 /* GoogleService-Info-2.plist */,
 				91908A192BDC667D00A95B8D /* GoogleService-Info.plist */,
+				913CA7732BFC1A9B005BC677 /* ViewModifiers */,
 				91EDC98B2BE329360012BFD0 /* Helpers */,
 				9189E83C2BDC8E4400DF915E /* Managers */,
 				9147285D2BEACBAE002C8154 /* Models */,

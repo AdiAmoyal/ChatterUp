@@ -189,6 +189,10 @@ final class UserManager: ObservableObject {
         return publisher
     }
     
+    func removeListenerForAllUserChats() {
+        self.userChatsListener?.remove()
+    }
+    
     func updateUserChatLastMessage(chatId: String, userId: String, message: Message) async throws {
         guard let data = try? encoder.encode(message) else {
             throw URLError(.badURL)

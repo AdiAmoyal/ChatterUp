@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import Combine
 
 @MainActor
 final class ChatViewModel: ObservableObject {
@@ -16,12 +17,28 @@ final class ChatViewModel: ObservableObject {
     @Published var chat: Chat
     @Published var currentUser: DBUser
     @Published var chatWith: DBUser?
+    
     private var lastDocument: DocumentSnapshot? = nil
+    private var cancellables = Set<AnyCancellable>()
     
     init(chat: Chat, currentUser: DBUser) {
         self.chat = chat
         self.currentUser = currentUser
         self.chatWith = chat.participents.first(where: { $0.userId != currentUser.userId })
+    }
+    
+    func addListenerForMessages() {
+        ChatManager.shared.addListenerForAllChatMessages(chatId: chat.id)
+            .sink { complition in
+                
+            } receiveValue: { [weak self] messages in
+                self?.messages = messages
+            }
+            .store(in: &cancellables)
+    }
+    
+    func removeListenerForMessages() {
+        ChatManager.shared.removeListenerForAllChatMessages()
     }
     
     func getAllMessages() async throws {
@@ -91,18 +108,12 @@ struct ChatView: View {
             .padding()
         }
         .onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.getAllMessages()
-                    if let message = viewModel.chat.lastMessage {
-                        scrollToMessage = message.id
-                    }
-                } catch {
-                    print(error)
-                }
+            viewModel.addListenerForMessages()
+            if let message = viewModel.chat.lastMessage {
+                scrollToMessage = message.id
             }
-            
         })
+        .onDisappear(perform: viewModel.removeListenerForMessages)
     }
 }
 
