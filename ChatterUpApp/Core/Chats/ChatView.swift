@@ -107,7 +107,7 @@ struct ChatView: View {
             .foregroundStyle(Color.theme.body)
             .padding()
         }
-        .onAppear(perform: {
+        .onFirstAppear(perform: {
             viewModel.addListenerForMessages()
             if let message = viewModel.chat.lastMessage {
                 scrollToMessage = message.id
@@ -149,8 +149,11 @@ extension ChatView {
                             .cornerRadius(15)
                             .frame(maxWidth: .infinity, alignment: message.senderId == viewModel.currentUser.userId ? .trailing : .leading)
                     }
-                    .onChange(of: scrollToMessage) { oldValue, newValue in
-                        proxy.scrollTo(newValue)
+                    .onChange(of: viewModel.messages) { oldValue, newValue in
+                        proxy.scrollTo(newValue.last?.id)
+                    }
+                    .onFirstAppear {
+                        proxy.scrollTo(viewModel.chat.lastMessage?.id)
                     }
                 } else {
                     Text("No messages")
@@ -179,7 +182,6 @@ extension ChatView {
                 Task {
                     do {
                         try await viewModel.addNewMessage()
-                        scrollToMessage = viewModel.messages.last?.id ?? ""
                         viewModel.newMessageText = ""
                     } catch {
                         print(error)

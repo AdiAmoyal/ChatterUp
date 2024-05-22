@@ -109,7 +109,7 @@ final class ChatManager {
     }
     
     func getAllChatMessages(chatId: String, lastDocument: DocumentSnapshot?) async throws -> (documents: [Message], lastDocument: DocumentSnapshot?) {
-        try await chatMessagesCollection(chatId: chatId)
+        return try await chatMessagesCollection(chatId: chatId)
             .order(by: Message.CodingKeys.timeCreated.rawValue, descending: false)
             .limit(to: 20)
             .startOptionally(afterDocument: lastDocument)
@@ -118,6 +118,7 @@ final class ChatManager {
     
     func addListenerForAllChatMessages(chatId: String) -> AnyPublisher<[Message], Error> {
         let (publisher, listener) = chatMessagesCollection(chatId: chatId)
+            .order(by: Message.CodingKeys.timeCreated.rawValue, descending: false)
             .addSnapshotListener(as: Message.self)
         self.chatMessagesListener = listener
         return publisher
